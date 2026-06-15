@@ -25,3 +25,16 @@ button {
     border-radius: 6px;
     cursor: pointer;
 }
+
+#result {
+    margin-top: 24px;
+    padding: 16px;
+    background-color: white;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px; 
+    line-height: 1.6;
+}
+
+#result:empty {
+    display: none;
+}
