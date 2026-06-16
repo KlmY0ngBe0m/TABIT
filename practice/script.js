@@ -38,7 +38,12 @@ recommendButton.addEventListener("click", function() {
     return;
    }
 
-   result.textContent = 
-    `추천 여행지는 ${recommendedCity}입니다. 추천 이유: ${recommendedReson} 예산 ${budget}원으로 ${days}일 동안 ${companion} 유형과 ${travelStyle} 스타일에 맞는 여행을 추천합니다.
-    관심사는 ${interests.join(", ")}입니다.`; 
+   result.innerHTML = 
+    `추천 여행지: ${recommendedCity}<br>` +
+    `추천 이유: ${recommendedReson}<br>` +
+    `예산: ${budget}원<br>` +
+    `여행 기간: ${days}일<br>` +
+    `동행 유형: ${companion}<br>` +
+    `여행 스타일: ${travelStyle}<br>` +
+    `관심사: ${interests.join(", ")}`;
 });
