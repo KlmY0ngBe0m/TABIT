@@ -14,6 +14,16 @@ recommendButton.addEventListener("click", function() {
    });
    const result = document.querySelector("#result");
 
+   let recommendedCity = "도쿄";
+
+   if (interests.includes("nature")) {
+    recommendedCity = "삿포로";
+   } else if (interests.includes("food")) {
+    recommendedCity = "후쿠오카";
+   } else if (interests.includes("shopping")) {
+    recommendedCity = "오사카";
+   }
+
    if (budget === "") {
     result.textContent = "예산을 입력해주세요.";
     return;
@@ -25,6 +35,6 @@ recommendButton.addEventListener("click", function() {
    }
 
    result.textContent = 
-    `예산 ${budget}원으로 ${days}일 동안 ${companion} 유형과 ${travelStyle} 스타일에 맞는 여행을 추천합니다.
+    `추천 여행지는 ${recommendedCity}입니다. 예산 ${budget}원으로 ${days}일 동안 ${companion} 유형과 ${travelStyle} 스타일에 맞는 여행을 추천합니다.
     관심사는 ${interests.join(", ")}입니다.`; 
 });
