@@ -3,14 +3,20 @@ const recommendButton = document.querySelector("#recommend-button");
 recommendButton.addEventListener("click", function() {
    const budget = document.querySelector("#budget").value;
    const days = document.querySelector("#days").value;
-   const companion = document.querySelector("#companion").value;
-   const travelStyle = document.querySelector("#travel-style").value;
+
+   const companionSelect = document.querySelector("#companion");
+   const travelStyleSelect = document.querySelector("#travel-style");
+
+   const companion = companionSelect.options[companionSelect.selectedIndex].text;
+
+   const travelStyle = travelStyleSelect.options[travelStyleSelect.selectedIndex].text;
+
    const checkedInterests = document.querySelectorAll(
     'input[name="interest"]:checked'
    );
 
    const interests = Array.from(checkedInterests).map(function (checkbox) {
-    return checkbox.value;
+    return checkbox.parentElement.textContent.trim();
    });
    const result = document.querySelector("#result");
 
