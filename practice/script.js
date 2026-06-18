@@ -61,6 +61,19 @@ function recommendDestination(interests) {
    };
 }
 
+function renderResult(resultElement, recommendation, planByDays, userInput) {
+    resultElement.innerHTML = 
+    `추천 여행지: ${recommendation.recommendedCity}<br>` +
+    `추천 이유: ${recommendation.recommendationReason}<br>` +
+    `예상 예산: ${recommendation.estimatedBudget}<br>` +
+    `간단 일정:<br>${planByDays}<br>` +
+    `예산: ${userInput.budget}만 원<br>` +
+    `여행 기간: ${userInput.days}일<br>` +
+    `동행 유형: ${userInput.companion}<br>` +
+    `여행 스타일: ${userInput.travelStyle}<br>` +
+    `관심사: ${userInput.interests.join(", ")}`;
+}
+
 const recommendButton = document.querySelector("#recommend-button");
 
 recommendButton.addEventListener("click", function() {
@@ -93,14 +106,12 @@ recommendButton.addEventListener("click", function() {
     const recommendation = recommendDestination(interests);
     const planByDays = recommendation.samplePlan.slice(0,days).join("<br>");
 
-    result.innerHTML = 
-    `추천 여행지: ${recommendation.recommendedCity}<br>` +
-    `추천 이유: ${recommendation.recommendationReason}<br>` +
-    `예상 예산: ${recommendation.estimatedBudget}<br>` +
-    `간단 일정:<br>${planByDays}<br>` +
-    `예산: ${budget}만 원<br>` +
-    `여행 기간: ${days}일<br>` +
-    `동행 유형: ${companion}<br>` +
-    `여행 스타일: ${travelStyle}<br>` +
-    `관심사: ${interests.join(", ")}`;
+    renderResult(result, recommendation, planByDays, {
+        budget,
+        days,
+        companion,
+        travelStyle,
+        interests,
+    });
+
 });
