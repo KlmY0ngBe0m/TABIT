@@ -1,23 +1,29 @@
+function getSelectedText(selectId) {
+    const selectElement = document.querySelector(selectId);
+    return selectElement.options[selectElement.selectedIndex].text;
+}
+
+function getCheckedInterests() {
+    const checkedInterests = document.querySelectorAll(
+        'input[name= "interest"]:checked'
+    );
+
+    return Array.from(checkedInterests).map(function (checkbox) {
+        return checkbox.parentElement.textContent.trim();
+    });
+}
+
 const recommendButton = document.querySelector("#recommend-button");
 
 recommendButton.addEventListener("click", function() {
    const budget = document.querySelector("#budget").value;
    const days = Number(document.querySelector("#days").value);
 
-   const companionSelect = document.querySelector("#companion");
-   const travelStyleSelect = document.querySelector("#travel-style");
-
-   const companion = companionSelect.options[companionSelect.selectedIndex].text;
-
-   const travelStyle = travelStyleSelect.options[travelStyleSelect.selectedIndex].text;
-
-   const checkedInterests = document.querySelectorAll(
-    'input[name="interest"]:checked'
-   );
-
-   const interests = Array.from(checkedInterests).map(function (checkbox) {
-    return checkbox.parentElement.textContent.trim();
-   });
+   const companion = getSelectedText("#companion");
+   const travelStyle = getSelectedText("#travel-style");
+  
+   const interests = getCheckedInterests();
+  
    const result = document.querySelector("#result");
 
    let recommendedCity = "도쿄";
