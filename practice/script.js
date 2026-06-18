@@ -5,7 +5,7 @@ function getSelectedText(selectId) {
 
 function getCheckedInterests() {
     const checkedInterests = document.querySelectorAll(
-        'input[name= "interest"]:checked'
+        'input[name="interest"]:checked'
     );
 
     return Array.from(checkedInterests).map(function (checkbox) {
@@ -13,19 +13,8 @@ function getCheckedInterests() {
     });
 }
 
-const recommendButton = document.querySelector("#recommend-button");
-
-recommendButton.addEventListener("click", function() {
-   const budget = document.querySelector("#budget").value;
-   const days = Number(document.querySelector("#days").value);
-
-   const companion = getSelectedText("#companion");
-   const travelStyle = getSelectedText("#travel-style");
-  
-   const interests = getCheckedInterests();
-  
-   const result = document.querySelector("#result");
-
+function recommendDestination(interests) {
+    
    let recommendedCity = "도쿄";
    let recommendationReason = "처음 일본 여행을 준비하는 여행자에게 다양한 선택지가 있기 때문입니다.";
    let estimatedBudget = "약 80만 원";
@@ -64,6 +53,28 @@ recommendButton.addEventListener("click", function() {
     ];
    }
 
+   return {
+    recommendedCity,
+    recommendationReason,
+    estimatedBudget,
+    samplePlan,
+   };
+}
+
+const recommendButton = document.querySelector("#recommend-button");
+
+recommendButton.addEventListener("click", function() {
+   const budget = document.querySelector("#budget").value;
+   const days = Number(document.querySelector("#days").value);
+
+   const companion = getSelectedText("#companion");
+   const travelStyle = getSelectedText("#travel-style");
+  
+   const interests = getCheckedInterests();
+  
+   const result = document.querySelector("#result");
+
+
    if (budget === "") {
     result.textContent = "예산을 입력해주세요.";
     return;
@@ -79,12 +90,13 @@ recommendButton.addEventListener("click", function() {
     return;
    }
 
-   const planByDays = samplePlan.slice(0, days).join("<br>");
+    const recommendation = recommendDestination(interests);
+    const planByDays = recommendation.samplePlan.slice(0,days).join("<br>");
 
-   result.innerHTML = 
-    `추천 여행지: ${recommendedCity}<br>` +
-    `추천 이유: ${recommendationReason}<br>` +
-    `예상 예산: ${estimatedBudget}<br>` +
+    result.innerHTML = 
+    `추천 여행지: ${recommendation.recommendedCity}<br>` +
+    `추천 이유: ${recommendation.recommendationReason}<br>` +
+    `예상 예산: ${recommendation.estimatedBudget}<br>` +
     `간단 일정:<br>${planByDays}<br>` +
     `예산: ${budget}만 원<br>` +
     `여행 기간: ${days}일<br>` +
