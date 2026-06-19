@@ -74,6 +74,22 @@ function renderResult(resultElement, recommendation, planByDays, userInput) {
     `관심사: ${userInput.interests.join(", ")}`;
 }
 
+function validateInput(budget, interests) {
+    if (budget === "") {
+        return "예산을 입력해주세요";
+    }
+
+    if (Number(budget) < 30) {
+        return "예산은 최소 30만 원 이상으로 입력해주세요.";
+    }
+
+    if (interests.length === 0) {
+        return "관심사를 하나 이상 선택헤주세요";
+    }
+
+    return "";
+}
+
 const recommendButton = document.querySelector("#recommend-button");
 
 recommendButton.addEventListener("click", function() {
@@ -87,21 +103,12 @@ recommendButton.addEventListener("click", function() {
   
    const result = document.querySelector("#result");
 
+    const errorMessege = validateInput(budget, interests);
 
-   if (budget === "") {
-    result.textContent = "예산을 입력해주세요.";
-    return;
-   }
-
-   if (Number(budget) < 30) {
-    result.textContent = "예산은 최소 30만 원 이상으로 입력해주세요.";
-    return;
-   }
-
-   if (interests.length === 0) {
-    result.textContent = "관심사를 하나 이상 선택해주세요.";
-    return;
-   }
+    if(errorMessege !== "") {
+        result.textContent = errorMessege;
+        return;
+    }
 
     const recommendation = recommendDestination(interests);
     const planByDays = recommendation.samplePlan.slice(0,days).join("<br>");
