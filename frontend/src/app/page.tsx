@@ -8,6 +8,15 @@ export default function Home() {
   const [days, setDays] = useState("2");
   const [companion,setCompanion] = useState("solo");
   const [travelStyle,SetTravelStyle] = useState("relaxed");
+  const [interests, setInterests] = useState<string[]>([]);
+
+  function handleInterestiChang(interest: string) {
+    if (interests.includes(interest)) {
+      setInterests(interests.filter((item) => item !== interest));
+    } else {
+      setInterests([...interests,interest]);
+    }
+  }
 
   return (
     <main>
@@ -62,6 +71,46 @@ export default function Home() {
 
     <p>동행 유형: {companion}</p>
     <p>여행 스타일: {travelStyle}</p>
+
+    <p>관심사</p>
+
+    <label>
+      <input 
+        type="checkbox"
+        checked={interests.includes("food")}
+        onChange={() => handleInterestiChang("food")} 
+      />
+      맛집
+    </label>
+
+    <label>
+      <input 
+        type="checkbox"
+        checked={interests.includes("nature")}
+        onChange={() => handleInterestiChang("nature")} 
+      />
+      자연
+    </label>
+
+    <label>
+      <input 
+        type="checkbox"
+        checked={interests.includes("shopping")}
+        onChange={() => handleInterestiChang("shopping")} 
+      />
+      쇼핑
+    </label>
+
+    <label>
+      <input 
+        type="checkbox"
+        checked={interests.includes("culture")}
+        onChange={() => handleInterestiChang("culture")} 
+      />
+      문화 
+    </label>
+
+    <p>선택한 관심사: {interests.join(", ")}</p>
       <button type="button">여행지 추천</button>
     </main>
   );
