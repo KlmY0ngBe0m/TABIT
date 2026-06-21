@@ -9,6 +9,7 @@ export default function Home() {
   const [companion,setCompanion] = useState("solo");
   const [travelStyle,SetTravelStyle] = useState("relaxed");
   const [interests, setInterests] = useState<string[]>([]);
+  const [resultMessage,setResultMessage] = useState("");
 
   function handleInterestiChang(interest: string) {
     if (interests.includes(interest)) {
@@ -16,6 +17,24 @@ export default function Home() {
     } else {
       setInterests([...interests,interest]);
     }
+  }
+  function handleRecommendClick() {
+    if (budget === "") {
+      setResultMessage("예산을 입력해 주세요");
+      return;
+    }
+    if (Number(budget) < 30) {
+      setResultMessage("예산은 최소 30만 원 이상으로 입력해주세요");
+      return;
+    }
+    if (interests.length === 0) {
+      setResultMessage("관심사를 하나 이상 선택해주세요");
+      return;
+    }
+
+    setResultMessage(
+      `예산 ${budget}만 원으로 ${days}일 동안 여행을 추천합니다`
+    );
   }
 
   return (
@@ -111,7 +130,8 @@ export default function Home() {
     </label>
 
     <p>선택한 관심사: {interests.join(", ")}</p>
-      <button type="button">여행지 추천</button>
+      <button type="button" onClick={handleRecommendClick}>여행지 추천</button>
+      {resultMessage !== "" && <p>{resultMessage}</p>}
     </main>
   );
 }
