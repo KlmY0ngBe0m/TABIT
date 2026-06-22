@@ -230,10 +230,10 @@ export default function Home() {
     <p>선택한 관심사:{" "} 
       {interests.map((interest) => interestsLabels[interest]).join(", ")}</p>
       <button type="button" onClick={handleRecommendClick}>여행지 추천</button>
-      {errorMessage !== "" && <p>{errorMessage}</p>}
+      {errorMessage !== "" && <p className="error-message">{errorMessage}</p>}
 
       {recommendation && (
-        <section>
+        <section className="result-card">
           <h2>추천 여행지: {recommendation.recommendedCity}</h2>
           <p>추천 이유: {recommendation.recommendationReason}</p>
           <p>예상 예산: {recommendation.estimatedBudget}</p>
