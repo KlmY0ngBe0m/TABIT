@@ -78,6 +78,26 @@ function recommendDestination(interests: string[]): RecommendationResult {
   };
 }
 
+const companionLabels: Record<string, string> = {
+  solo: "혼자",
+  friend: "친구",
+  couple: "연인",
+  family: "가족",
+};
+
+const travelStyleLabels: Record<string, string> = {
+  relaxed: "여유롭게",
+  balanced: "보통",
+  packed: "알차게",
+};
+
+const interestsLabels: Record<string, string> = {
+  food: "맛집",
+  nature: "자연",
+  shopping: "쇼핑",
+  culture: "문화",
+};
+
 export default function Home() {
   const [budget, setBudget] = useState("");
   const [days, setDays] = useState("2");
@@ -166,8 +186,8 @@ export default function Home() {
       <option value="packed">알차게</option>
     </select>
 
-    <p>동행 유형: {companion}</p>
-    <p>여행 스타일: {travelStyle}</p>
+    <p>동행 유형: {companionLabels[companion]}</p>
+    <p>여행 스타일: {travelStyleLabels[travelStyle]}</p>
 
     <p>관심사</p>
 
@@ -207,7 +227,8 @@ export default function Home() {
       문화 
     </label>
 
-    <p>선택한 관심사: {interests.join(", ")}</p>
+    <p>선택한 관심사:{" "} 
+      {interests.map((interest) => interestsLabels[interest]).join(", ")}</p>
       <button type="button" onClick={handleRecommendClick}>여행지 추천</button>
       {errorMessage !== "" && <p>{errorMessage}</p>}
 
