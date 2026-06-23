@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import RecommendationCard from "@/components/RecommendationCard";
+import TravelForm from "@/components/TravelForm";
 
 type Destination = {
   city: string;
@@ -57,7 +58,7 @@ function recommendDestination(interests: string[]): RecommendationResult {
   const matchedDestination = destinations.find((destination) =>
     interests.includes(destination.keyword)
   );
-  
+
   if (matchedDestination) {
     return {
       recommendedCity: matchedDestination.city,
@@ -92,7 +93,7 @@ const travelStyleLabels: Record<string, string> = {
   packed: "알차게",
 };
 
-const interestsLabels: Record<string, string> = {
+const interestLabels: Record<string, string> = {
   food: "맛집",
   nature: "자연",
   shopping: "쇼핑",
@@ -141,101 +142,28 @@ export default function Home() {
       <h1>TABIT</h1>
       <p>나에게 맞는 일본 여행지를 찾아보세요.</p>
 
-      <label htmlFor="budget">예산(만원)</label>
-      <input 
-        id="budget"
-        type="number" 
-        placeholder="예: 100" 
-        value={budget}
-        onChange={(event) => setBudget(event.target.value)}
-        />
-
-      <label htmlFor="days">여행 기간</label>
-      <select 
-        id="days"
-        value={days}
-        onChange={(event) => setDays(event.target.value)}
-        >
-        <option value="2">2일</option>
-        <option value="3">3일</option>
-        <option value="4">4일</option>
-      </select>
-
-      <p>입력한 예산: {budget}만 원</p>
-      <p>선택한 여행 기간: {days}일</p>
-
-      <label htmlFor="companion">동행 유형</label>
-      <select
-        id="companion"
-        value={companion}
-        onChange={(event) => setCompanion(event.target.value)}
-      >
-        <option value="solo">혼자</option>
-        <option value="friend">친구</option>
-        <option value="couple">연인</option>
-        <option value="family">가족</option>
-      </select>
-
-    <label htmlFor="travel-style">여행 스타일</label>
-    <select
-      id="travel-style"
-      value={travelStyle}
-      onChange={(event) => setTravelStyle(event.target.value)}
-    >
-      <option value="relaxed">여유롭게</option>
-      <option value="balanced">보통</option>
-      <option value="packed">알차게</option>
-    </select>
-
-    <p>동행 유형: {companionLabels[companion]}</p>
-    <p>여행 스타일: {travelStyleLabels[travelStyle]}</p>
-
-    <p>관심사</p>
-
-    <label>
-      <input 
-        type="checkbox"
-        checked={interests.includes("food")}
-        onChange={() => handleInterestChange("food")} 
+      <TravelForm
+        budget={budget}
+        days={days}
+        companion={companion}
+        travelStyle={travelStyle}
+        interests={interests}
+        companionLabels={companionLabels}
+        travelStyleLabels={travelStyleLabels}
+        interestLabels={interestLabels}
+        setBudget={setBudget}
+        setDays={setDays}
+        setCompanion={setCompanion}
+        setTravelStyle={setTravelStyle}
+        handleInterestChange={handleInterestChange}
+        handleRecommendClick={handleRecommendClick}
       />
-      맛집
-    </label>
 
-    <label>
-      <input 
-        type="checkbox"
-        checked={interests.includes("nature")}
-        onChange={() => handleInterestChange("nature")} 
-      />
-      자연
-    </label>
-
-    <label>
-      <input 
-        type="checkbox"
-        checked={interests.includes("shopping")}
-        onChange={() => handleInterestChange("shopping")} 
-      />
-      쇼핑
-    </label>
-
-    <label>
-      <input 
-        type="checkbox"
-        checked={interests.includes("culture")}
-        onChange={() => handleInterestChange("culture")} 
-      />
-      문화 
-    </label>
-
-    <p>선택한 관심사:{" "} 
-      {interests.map((interest) => interestsLabels[interest]).join(", ")}</p>
-      <button type="button" onClick={handleRecommendClick}>여행지 추천</button>
       {errorMessage !== "" && <p className="error-message">{errorMessage}</p>}
 
-     {recommendation && (
-      <RecommendationCard recommendation={recommendation} days={days} />
-     )}
+      {recommendation && (
+        <RecommendationCard recommendation={recommendation} days={days} />
+      )}
     </main>
   );
 }
