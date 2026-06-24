@@ -1,4 +1,5 @@
 import { ValueOf } from "next/dist/shared/lib/constants";
+import InterestSelector from "./InterestSelector";
 
 type TravelFormProps = {
     budget: string;
@@ -84,48 +85,11 @@ export default function TravelForm({
       <p>동행 유형: {companionLabels[companion]}</p>
       <p>여행 스타일: {travelStyleLabels[travelStyle]}</p>
 
-      <p>관심사</p>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={interests.includes("food")}
-          onChange={() => handleInterestChange("food")}
-        />
-        맛집
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={interests.includes("nature")}
-          onChange={() => handleInterestChange("nature")}
-        />
-        자연
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={interests.includes("shopping")}
-          onChange={() => handleInterestChange("shopping")}
-        />
-        쇼핑
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={interests.includes("culture")}
-          onChange={() => handleInterestChange("culture")}
-        />
-        문화
-      </label>
-
-      <p>
-        선택한 관심사:{" "}
-        {interests.map((interest) => interestLabels[interest]).join(", ")}
-      </p>
+     <InterestSelector
+        interests={interests}
+        interestLabels={interestLabels}
+        handleInterestChange={handleInterestChange}
+/>
 
       <button type="button" onClick={handleRecommendClick}>
         여행지 추천
