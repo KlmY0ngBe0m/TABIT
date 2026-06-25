@@ -79,7 +79,11 @@ export default function Home() {
       {errorMessage !== "" && <p className="error-message">{errorMessage}</p>}
 
       {recommendation && (
-        <RecommendationCard recommendation={recommendation} days={days} />
+        <RecommendationCard 
+        recommendation={recommendation} 
+        days={days} 
+        language={language}
+        />
       )}
     </main>
   );

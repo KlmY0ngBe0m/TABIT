@@ -37,6 +37,10 @@ export const translations = {
             balanced: "보통",
             packed: "알차게",
         },
+        recommendedDestination: "추천 여행지",
+        recommendationReason: "추천 이유",
+        estimatedBudget: "예상 예산",
+        samplePlan: "간단 일정",
     },
 
     ja: {
@@ -75,5 +79,9 @@ export const translations = {
             balanced: "バランスよく",
             packed: "充実した日程",
         },
+        recommendedDestination: "おすすめの旅行先",
+        recommendationReason: "おすすめの理由",
+        estimatedBudget: "予想予算",
+        samplePlan: "簡単な旅程",
     },
 };

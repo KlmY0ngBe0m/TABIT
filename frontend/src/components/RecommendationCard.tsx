@@ -1,3 +1,5 @@
+import { Language, translations } from "@/lib/translations";
+
 type RecommendationResult = {
     recommendedCity: string;
     recommendationReason: string;
@@ -8,19 +10,22 @@ type RecommendationResult = {
 type RecommendationCardProps = {
     recommendation: RecommendationResult;
     days: string;
+    language: Language;
 };
 
 export default function RecommendationCard({
   recommendation,
   days,
+  language,
 }: RecommendationCardProps) {
+  const text = translations[language];
   return (
     <section className="result-card">
-      <h2>추천 여행지: {recommendation.recommendedCity}</h2>
-      <p>추천 이유: {recommendation.recommendationReason}</p>
-      <p>예상 예산: {recommendation.estimatedBudget}</p>
+      <h2>{text.recommendedDestination}: {recommendation.recommendedCity}</h2>
+      <p>{text.recommendationReason}: {recommendation.recommendationReason}</p>
+      <p>{text.estimatedBudget}: {recommendation.estimatedBudget}</p>
 
-      <h3>간단 일정</h3>
+      <h3>{text.samplePlan}</h3>
       <ul>
         {recommendation.samplePlan.slice(0, Number(days)).map((plan) => (
           <li key={plan}>{plan}</li>
