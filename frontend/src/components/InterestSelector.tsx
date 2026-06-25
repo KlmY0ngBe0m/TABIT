@@ -2,6 +2,8 @@ type InterestSelectorProps = {
     interests: string [];
     interestLabels: Record<string, string>;
     handleInterestChange: (interest: string) => void;
+    title: string;
+    selectedTitle: string;
 };
 
 const interestOptions = ["food", "nature", "shopping", "culture"];
@@ -10,10 +12,12 @@ export default function InterestSelector({
     interests,
     interestLabels,
     handleInterestChange,
+    title,
+    selectedTitle,
 }: InterestSelectorProps) {
     return (
     <>
-        <p>관심사</p>
+        <p>{title}</p>
 
         {interestOptions.map((interest) => (
             <label key={interest}>
@@ -27,7 +31,7 @@ export default function InterestSelector({
         ))}
 
         <p>
-            선택한 관심사:{" "}
+            {selectedTitle}:{" "}
             {interests.map((interest) => interestLabels[interest]).join(", ")}
         </p>
     </>
