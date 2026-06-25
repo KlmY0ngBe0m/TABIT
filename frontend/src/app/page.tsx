@@ -48,17 +48,24 @@ export default function Home() {
   function handleRecommendClick() {
     setErrorMessage("");
     setRecommendation(null);
+    const minimumBudget = language === "ko" ? 30 : 30000;
 
     if (budget === "") {
-      setErrorMessage("예산을 입력해 주세요.");
+      setErrorMessage(
+        language === "ko" ? "예산을 입력해 주세요." : "予算を入力してください。"
+      );
       return;
     }
-    if (Number(budget) < 30) {
-      setErrorMessage("예산은 최소 30만 원 이상으로 입력해주세요.");
+    if (Number(budget) < minimumBudget) {
+      setErrorMessage(
+        language === "ko" ? "예산은 최소 30만 원 이상으로 입력해주세요." : "予算は3万円以上で入力してください。"
+      );
       return;
     }
     if (interests.length === 0) {
-      setErrorMessage("관심사를 하나 이상 선택해주세요.");
+      setErrorMessage(
+        language === "ko" ? "관심사를 하나 이상 선택해주세요." : "興味のある項目を1つ以上選択してください。"
+      );
       return;
     }
 
@@ -82,6 +89,7 @@ export default function Home() {
       </p>
 
       <TravelForm
+        language={language}
         budget={budget}
         days={days}
         companion={companion}

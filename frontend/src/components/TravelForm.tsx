@@ -2,6 +2,7 @@ import { ValueOf } from "next/dist/shared/lib/constants";
 import InterestSelector from "./InterestSelector";
 
 type TravelFormProps = {
+    language: "ko" | "ja";
     budget: string;
     days: string;
     companion: string;
@@ -19,6 +20,7 @@ type TravelFormProps = {
 };
 
 export default function TravelForm({
+  language,
   budget,
   days,
   companion,
@@ -36,11 +38,13 @@ export default function TravelForm({
 }: TravelFormProps) {
   return (
     <section className="travel-form">
-      <label htmlFor="budget">예산(만원)</label>
+      <label htmlFor="budget">
+        {language === "ko" ? "예산(만원)" : "予算（円）"}
+      </label>
       <input
         id="budget"
         type="number"
-        placeholder="예: 100"
+        placeholder={language === "ko" ? "예: 100" : "例: 100000"}
         value={budget}
         onChange={(event) => setBudget(event.target.value)}
       />
