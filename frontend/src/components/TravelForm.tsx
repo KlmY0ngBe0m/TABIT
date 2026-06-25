@@ -35,7 +35,7 @@ export default function TravelForm({
   handleRecommendClick,
 }: TravelFormProps) {
   return (
-    <>
+    <section className="travel-form">
       <label htmlFor="budget">예산(만원)</label>
       <input
         id="budget"
@@ -94,6 +94,6 @@ export default function TravelForm({
       <button type="button" onClick={handleRecommendClick}>
         여행지 추천
       </button>
-    </>
+    </section>
   );
 }

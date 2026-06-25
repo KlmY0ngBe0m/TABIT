@@ -127,3 +127,9 @@ input[type="checkbox"] {
   max-width: none;
   margin-top: 0;
 }
+
+.travel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
