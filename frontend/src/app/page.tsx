@@ -36,6 +36,7 @@ export default function Home() {
   const [interests, setInterests] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [recommendation, setRecommendation] = useState<RecommendationResult | null>(null);
+  const [language, setLanguage] = useState<"ko" | "ja">("ko");
 
   function handleInterestChange(interest: string) {
     if (interests.includes(interest)) {
@@ -67,8 +68,18 @@ export default function Home() {
 
   return (
     <main>
+      <button 
+        type="button"
+        onClick={() => setLanguage(language === "ko" ? "ja" : "ko")}
+      >
+        {language === "ko" ? "日本語" : "한국어"}
+      </button>
       <h1>TABIT</h1>
-      <p>나에게 맞는 일본 여행지를 찾아보세요.</p>
+      <p>
+        {language === "ko"
+        ? "나에게 맞는 일본 여행지를 찾아보세요."
+        : "あなたにぴったりの日本旅行先を見つけましょう。"}
+      </p>
 
       <TravelForm
         budget={budget}
