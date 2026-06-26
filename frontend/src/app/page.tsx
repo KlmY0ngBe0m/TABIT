@@ -27,7 +27,7 @@ export default function Home() {
       setInterests([...interests, interest]);
     }
   }
-  function handleRecommendClick() {
+  async function handleRecommendClick() {
     setErrorMessage("");
     setRecommendation(null);
     const minimumBudget = language === "ko" ? 30 : 30000;
@@ -44,8 +44,23 @@ export default function Home() {
       setErrorMessage(text.interestRequired);
       return;
     }
+    
+    const response = await fetch("/api/recommend", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        budget,
+        days,
+        companion,
+        travelStyle,
+        interests,
+        language,
+      }),
+    });
 
-    const result = recommendDestination(interests);
+    const result = await response.json();
     setRecommendation(result);
   }
 
