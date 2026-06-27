@@ -4,10 +4,7 @@ import { translations, type Language } from "@/lib/translations";
 import { useState } from "react";
 import RecommendationCard from "@/components/RecommendationCard";
 import TravelForm from "@/components/TravelForm";
-import {
-  recommendDestination,
-  type RecommendationResult,
-} from "../lib/recommendation";
+import { type RecommendationResult } from "@/lib/recommendation";
 
 export default function Home() {
   const [budget, setBudget] = useState("");
@@ -17,6 +14,7 @@ export default function Home() {
   const [interests, setInterests] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [recommendation, setRecommendation] = useState<RecommendationResult | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
   const text = translations[language];
 
@@ -44,24 +42,40 @@ export default function Home() {
       setErrorMessage(text.interestRequired);
       return;
     }
-    
-    const response = await fetch("/api/recommend", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        budget,
-        days,
-        companion,
-        travelStyle,
-        interests,
-        language,
-      }),
-    });
 
-    const result = await response.json();
-    setRecommendation(result);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/recommend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          budget,
+          days,
+          companion,
+          travelStyle,
+          interests,
+          language,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("API request failed");
+      }
+
+      const result = await response.json();
+      setRecommendation(result);
+    } catch {
+      setErrorMessage(
+        language === "ko"
+          ? "추천을 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
+          : "おすすめ情報を取得できませんでした。しばらくしてからもう一度お試しください。"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -93,11 +107,19 @@ export default function Home() {
 
       {errorMessage !== "" && <p className="error-message">{errorMessage}</p>}
 
+      {isLoading && (
+        <p>
+          {language === "ko" 
+          ? "추천을 생성하는 중입니다..."
+          : "おすすめを作成しています..."}
+        </p>
+      )}
+
       {recommendation && (
-        <RecommendationCard 
-        recommendation={recommendation} 
-        days={days} 
-        language={language}
+        <RecommendationCard
+          recommendation={recommendation}
+          days={days}
+          language={language}
         />
       )}
     </main>
