@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 function createFallbackRecommendation(interests: string[]) {
@@ -56,9 +57,74 @@ function createFallbackRecommendation(interests: string[]) {
   };
 }
 
-export async function POST(request: Request) {
-  const body = await request.json();
-  const recommendation = createFallbackRecommendation(body.interests ?? []);
 
-  return NextResponse.json(recommendation);
+
+export async function POST(request: Request) {
+  const apiKey = process.env.OPENAI_API_KEY;
+  const body = await request.json();
+
+  if (!apiKey) {
+    const recommendation = createFallbackRecommendation(body.interests ?? []);
+    return NextResponse.json(recommendation);
+  }
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/responses", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+            model: "gpt-5.5",
+            reasoning: { effort: "low" },
+            input: `
+            다음 조건에 맞는 일본 여행지를 추천해줘. 반드시 JSON 형식만 반환해줘.
+            
+            조건:
+           - 예산: ${body.budget}
+           - 여행 기간: ${body.days}일
+           - 동행 유형: ${body.companion}
+           - 여행 스타일: ${body.travelStyle}
+           - 관심사: ${(body.interests ?? []).join(", ")}
+           - 언어: ${body.language}
+            반환 형식:  
+            {
+              "recommendedCity": "도시명",
+              "recommendationReason": "추천 이유",
+              "estimatedBudget": "예상 예산",
+              "samplePlan": ["1일차 일정", "2일차 일정", "3일차 일정"]
+            }
+                    `,
+            
+
+        }),
+    })
+    
+    if (!response.ok) {
+        throw new Error("OpenAI API request failed");
+    }
+
+    const data = await response.json();
+    const aiText = 
+        data.output_text ??
+        data.output
+        ?.flatMap((item: any) => item.content ?? [])
+        ?.find((content: any) => content.type === "output_text")
+        ?.text;
+
+    if (!aiText) {
+        console.error("OpenAI raw resonse", JSON.stringify(data, null, 2));
+        throw new Error("AI response text is empty");
+    }
+
+    const recommendation = JSON.parse(aiText);
+
+    return NextResponse.json(recommendation);
+  } catch (error) {
+    console.error("OpenAI error", error);
+
+    const recommendation = createFallbackRecommendation(body.interests ?? []);
+    return NextResponse.json(recommendation);
+  }
 }
