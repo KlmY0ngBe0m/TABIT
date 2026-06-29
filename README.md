@@ -124,3 +124,7 @@ OpenAI APIを利用したAI旅行推薦機能まで実装済みです。
 - 推薦履歴の保存機能
 - 旅行日程のPDF出力
 - プロジェクト説明用ドキュメントの作成
+
+## デモ
+
+https://your-project-url.vercel.app

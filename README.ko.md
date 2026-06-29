@@ -124,3 +124,7 @@ OpenAI API를 이용한 AI 여행 추천 기능까지 구현했습니다.
 - 추천 기록 저장 기능
 - 여행 일정 PDF 출력
 - 프로젝트 설명용 문서 작성
+
+## 데모
+
+https://your-project-url.vercel.app
