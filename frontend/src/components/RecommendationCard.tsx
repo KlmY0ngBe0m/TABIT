@@ -22,9 +22,16 @@ export default function RecommendationCard({
   return (
     <section className="result-card">
       <h2>{text.recommendedDestination}: {recommendation.recommendedCity}</h2>
-      <p>{text.recommendationReason}: {recommendation.recommendationReason}</p>
-      <p>{text.estimatedBudget}: {recommendation.estimatedBudget}</p>
-
+      
+      <div className="result-setion">
+        <strong>{text.recommendationReason}</strong>
+        <p>{recommendation.recommendationReason}</p>
+      </div>
+      
+      <div className="result-section">
+        <strong>{text.estimatedBudget}</strong>
+        <p>{recommendation.estimatedBudget}</p>
+      </div>
       <h3>{text.samplePlan}</h3>
       <ul>
         {recommendation.samplePlan.slice(0, Number(days)).map((plan) => (
