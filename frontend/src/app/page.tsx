@@ -143,6 +143,7 @@ export default function Home() {
         companion={companion}
         travelStyle={travelStyle}
         interests={interests}
+        isLoading={isLoading}
         setBudget={setBudget}
         setDays={setDays}
         setCompanion={setCompanion}

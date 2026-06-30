@@ -233,3 +233,12 @@ main > button {
   line-height: 1.6;
 }
 
+button::disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button:disabled:hover {
+  background-color: #2563eb;
+}

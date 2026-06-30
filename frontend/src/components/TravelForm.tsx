@@ -8,6 +8,7 @@ type TravelFormProps = {
   companion: string;
   travelStyle: string;
   interests: string[];
+  isLoading: boolean;
   setBudget: (value: string) => void;
   setDays: (value: string) => void;
   setCompanion: (value: string) => void;
@@ -23,6 +24,7 @@ export default function TravelForm({
   companion,
   travelStyle,
   interests,
+  isLoading,
   setBudget,
   setDays,
   setCompanion,
@@ -105,8 +107,12 @@ export default function TravelForm({
         selectedTitle={text.selectedInterests}
       />
 
-      <button type="button" onClick={handleRecommendClick}>
-        {text.recommendButton}
+      <button type="button" onClick={handleRecommendClick} disabled={isLoading}>
+        {isLoading
+          ? language === "ko"
+            ? "추천 생성 중..."
+            : "おすすめ作成中..."
+          : text.recommendButton}
       </button>
     </section>
   );
