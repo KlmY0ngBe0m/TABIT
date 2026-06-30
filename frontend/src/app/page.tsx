@@ -45,18 +45,64 @@ export default function Home() {
 
     setIsLoading(true);
 
+    const interestLabels =
+      language === "ko"
+        ? {
+          food: "맛집",
+          nature: "자연",
+          shopping: "쇼핑",
+          culture: "문화",
+        }
+        : {
+          food: "グルメ",
+          nature: "自然",
+          shopping: "ショッピング",
+          culture: "文化",
+        };
+
+    const companionLabels =
+      language === "ko"
+        ? {
+          solo: "혼자",
+          friend: "친구",
+          couple: "연인",
+          family: "가족",
+        }
+        : {
+          solo: "一人",
+          friend: "友達",
+          couple: "カップル",
+          family: "家族",
+        };
+
+    const travelStyleLabels =
+      language === "ko"
+        ? {
+          relaxed: "여유롭게",
+          balanced: "보통",
+          packed: "알차게",
+        }
+        : {
+          relaxed: "ゆったり",
+          balanced: "バランスよく",
+          packed: "しっかり観光",
+        };
+
     try {
       const response = await fetch("/api/recommend", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
           budget,
           days,
-          companion,
-          travelStyle,
-          interests,
+          companion: companionLabels[companion as keyof typeof companionLabels],
+          travelStyle: travelStyleLabels[travelStyle as keyof typeof travelStyleLabels],
+          interests: interests.map(
+            (interest) => interestLabels[interest as keyof typeof interestLabels]
+          ),
           language,
         }),
       });
@@ -109,9 +155,9 @@ export default function Home() {
 
       {isLoading && (
         <p>
-          {language === "ko" 
-          ? "추천을 생성하는 중입니다..."
-          : "おすすめを作成しています..."}
+          {language === "ko"
+            ? "추천을 생성하는 중입니다..."
+            : "おすすめを作成しています..."}
         </p>
       )}
 

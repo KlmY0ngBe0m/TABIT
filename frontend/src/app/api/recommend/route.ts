@@ -86,7 +86,9 @@ export async function POST(request: Request) {
            - 여행 기간: ${body.days}일
            - 동행 유형: ${body.companion}
            - 여행 스타일: ${body.travelStyle}
-           - 관심사: ${(body.interests ?? []).join(", ")}
+           - 관심사: ${(body.interests ?? [])
+            .map((interest: string) => body.interestLabels?.[interest] ?? interest)
+            .join(", ")}
            - 언어: ${body.language}
             반환 형식:  
             {
