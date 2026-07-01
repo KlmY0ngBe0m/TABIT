@@ -9,10 +9,12 @@ type TravelFormProps = {
   travelStyle: string;
   interests: string[];
   isLoading: boolean;
+  extraRequest: string;
   setBudget: (value: string) => void;
   setDays: (value: string) => void;
   setCompanion: (value: string) => void;
   setTravelStyle: (value: string) => void;
+  setExtraRequest: (vlaue: string) => void;
   handleInterestChange: (interest: string) => void;
   handleRecommendClick: () => void;
 };
@@ -24,11 +26,13 @@ export default function TravelForm({
   companion,
   travelStyle,
   interests,
+  extraRequest,
   isLoading,
   setBudget,
   setDays,
   setCompanion,
   setTravelStyle,
+  setExtraRequest,
   handleInterestChange,
   handleRecommendClick,
 }: TravelFormProps) {
@@ -106,6 +110,45 @@ export default function TravelForm({
         title={text.interests}
         selectedTitle={text.selectedInterests}
       />
+
+      <label htmlFor="extra-request">
+        {language === "ko" ? "추가 요청" : "追加リクエスト"}
+      </label>
+
+      <textarea
+        id="extra-request"
+        value={extraRequest}
+        maxLength={100}
+        onChange={(event) => {
+          setExtraRequest(event.target.value);
+
+          const textarea = event.target;
+          const lineHeight = 24;
+          const minHeight = 44;
+          const maxHeight = 140;
+
+          textarea.style.height = "auto";
+
+          const nextHeight = Math.min(
+            Math.max(textarea.scrollHeight, minHeight),
+            maxHeight
+          );
+
+          const steppedHeight = Math.ceil(nextHeight / lineHeight) * lineHeight;
+
+          textarea.style.height = `${steppedHeight}px`;
+        }}
+
+        placeholder={
+          language === "ko"
+            ? "예: 조용한 온천 지역이면 좋겠어요."
+            : "例: 静かな温泉地に行きたいです。"
+        }
+      />
+
+      <p className="character-count"> 
+        {extraRequest.length}/100
+      </p>
 
       <button type="button" onClick={handleRecommendClick} disabled={isLoading}>
         {isLoading

@@ -83,6 +83,7 @@ export async function POST(request: Request) {
             
             조건:
            - 예산: ${body.budget}
+           - 예산 단위는 입련된 그대로 사용하고, 다른 통화로 변환하지 마세요.
            - 여행 기간: ${body.days}일
            - 동행 유형: ${body.companion}
            - 여행 스타일: ${body.travelStyle}
@@ -90,6 +91,8 @@ export async function POST(request: Request) {
             .map((interest: string) => body.interestLabels?.[interest] ?? interest)
             .join(", ")}
            - 언어: ${body.language}
+           - 추가요청: ${body.extraRequest || "없음"}
+           
             반환 형식:  
             {
               "recommendedCity": "도시명",

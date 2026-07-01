@@ -12,6 +12,7 @@ export default function Home() {
   const [companion, setCompanion] = useState("solo");
   const [travelStyle, setTravelStyle] = useState("relaxed");
   const [interests, setInterests] = useState<string[]>([]);
+  const [extraRequest, setExtraRequest] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [recommendation, setRecommendation] = useState<RecommendationResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,13 +97,14 @@ export default function Home() {
         },
 
         body: JSON.stringify({
-          budget,
+          budget: language === "ko" ? `${budget}만 원` : `${budget}円`,
           days,
           companion: companionLabels[companion as keyof typeof companionLabels],
           travelStyle: travelStyleLabels[travelStyle as keyof typeof travelStyleLabels],
           interests: interests.map(
             (interest) => interestLabels[interest as keyof typeof interestLabels]
           ),
+          extraRequest,
           language,
         }),
       });
@@ -143,11 +145,13 @@ export default function Home() {
         companion={companion}
         travelStyle={travelStyle}
         interests={interests}
+        extraRequest={extraRequest}
         isLoading={isLoading}
         setBudget={setBudget}
         setDays={setDays}
         setCompanion={setCompanion}
         setTravelStyle={setTravelStyle}
+        setExtraRequest={setExtraRequest}
         handleInterestChange={handleInterestChange}
         handleRecommendClick={handleRecommendClick}
       />
