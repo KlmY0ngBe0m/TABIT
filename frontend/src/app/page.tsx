@@ -9,6 +9,8 @@ import { type RecommendationResult } from "@/lib/recommendation";
 export default function Home() {
   const [budget, setBudget] = useState("");
   const [days, setDays] = useState("2");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [companion, setCompanion] = useState("solo");
   const [travelStyle, setTravelStyle] = useState("relaxed");
   const [interests, setInterests] = useState<string[]>([]);
@@ -18,6 +20,24 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
   const text = translations[language];
+
+  function calculateTravelDays(start: string, end: string) {
+    if (start === "" || end === "") {
+      return "";
+    }
+
+    const startTime = new Date(start).getTime();
+    const endTime = new Date(end).getTime();
+
+    if (startTime > endTime){
+      return "";
+    }
+
+    const oneDay = 1000 * 60 * 60 * 24;
+    const diffDays = Math.floor((endTime - startTime) / oneDay) +1;
+
+    return String(diffDays);
+  }
 
   function handleInterestChange(interest: string) {
     if (interests.includes(interest)) {
@@ -35,14 +55,32 @@ export default function Home() {
       setErrorMessage(text.budgetRequired);
       return;
     }
+
     if (Number(budget) < minimumBudget) {
       setErrorMessage(text.budgetMinimum);
       return;
     }
+
     if (interests.length === 0) {
       setErrorMessage(text.interestRequired);
       return;
     }
+    
+    if (startDate === "") {
+      setErrorMessage(text.startDateRequired);
+      return;
+    }
+
+    if (endDate === "") {
+      setErrorMessage(text.endDateRequired);
+      return;
+    }
+
+    if (new Date(startDate) > new Date(endDate)) {
+      setErrorMessage(text.invalidDateRange);
+      return;
+    }
+    
 
     setIsLoading(true);
 
@@ -99,6 +137,8 @@ export default function Home() {
         body: JSON.stringify({
           budget: language === "ko" ? `${budget}만 원` : `${budget}円`,
           days,
+          startDate,
+          endDate,
           companion: companionLabels[companion as keyof typeof companionLabels],
           travelStyle: travelStyleLabels[travelStyle as keyof typeof travelStyleLabels],
           interests: interests.map(
@@ -142,6 +182,8 @@ export default function Home() {
         language={language}
         budget={budget}
         days={days}
+        startDate={startDate}
+        endDate={endDate}
         companion={companion}
         travelStyle={travelStyle}
         interests={interests}
@@ -149,6 +191,22 @@ export default function Home() {
         isLoading={isLoading}
         setBudget={setBudget}
         setDays={setDays}
+        setStartDate={(value) => {
+          setStartDate(value);
+
+          const calculatedDays = calculateTravelDays(value, endDate);
+          if (calculatedDays !== "") {
+            setDays(calculatedDays);
+          }
+        }}
+        setEndDate={(value) => {
+          setEndDate(value);
+
+          const calculatedDays = calculateTravelDays(startDate, value);
+          if (calculatedDays === "") {
+            setDays(calculatedDays);
+          }
+        }}
         setCompanion={setCompanion}
         setTravelStyle={setTravelStyle}
         setExtraRequest={setExtraRequest}

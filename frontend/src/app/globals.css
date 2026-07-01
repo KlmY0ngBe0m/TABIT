@@ -134,6 +134,28 @@ textarea::placeholder {
   color: #94a3b8;  
 }
 
+.readonly-field {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.readonly-field span {
+  color: #475569;
+  font-size: 14px;
+}
+
+.readonly-field strong {
+  color: #0f172a;
+  font-size: 14px;
+}
+
 button {
   display: inline-flex;
   align-items: center;

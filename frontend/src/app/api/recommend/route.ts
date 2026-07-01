@@ -70,21 +70,23 @@ export async function POST(request: Request) {
 
   try {
     const response = await fetch("https://api.openai.com/v1/responses", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-            model: "gpt-5.5",
-            reasoning: { effort: "low" },
-            input: `
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-5.5",
+        reasoning: { effort: "low" },
+        input: `
             다음 조건에 맞는 일본 여행지를 추천해줘. 반드시 JSON 형식만 반환해줘.
             
             조건:
            - 예산: ${body.budget}
            - 예산 단위는 입련된 그대로 사용하고, 다른 통화로 변환하지 마세요.
            - 여행 기간: ${body.days}일
+           - 출발일: ${body.startDate || "미정"}
+           - 귀국일: ${body.endDate || "미정"}
            - 동행 유형: ${body.companion}
            - 여행 스타일: ${body.travelStyle}
            - 관심사: ${(body.interests ?? [])
@@ -92,7 +94,7 @@ export async function POST(request: Request) {
             .join(", ")}
            - 언어: ${body.language}
            - 추가요청: ${body.extraRequest || "없음"}
-           
+
             반환 형식:  
             {
               "recommendedCity": "도시명",
@@ -101,26 +103,26 @@ export async function POST(request: Request) {
               "samplePlan": ["1일차 일정", "2일차 일정", "3일차 일정"]
             }
                     `,
-            
 
-        }),
+
+      }),
     })
-    
+
     if (!response.ok) {
-        throw new Error("OpenAI API request failed");
+      throw new Error("OpenAI API request failed");
     }
 
     const data = await response.json();
-    const aiText = 
-        data.output_text ??
-        data.output
+    const aiText =
+      data.output_text ??
+      data.output
         ?.flatMap((item: any) => item.content ?? [])
         ?.find((content: any) => content.type === "output_text")
         ?.text;
 
     if (!aiText) {
-        console.error("OpenAI raw resonse", JSON.stringify(data, null, 2));
-        throw new Error("AI response text is empty");
+      console.error("OpenAI raw resonse", JSON.stringify(data, null, 2));
+      throw new Error("AI response text is empty");
     }
 
     const recommendation = JSON.parse(aiText);

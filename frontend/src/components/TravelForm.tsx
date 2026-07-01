@@ -5,6 +5,8 @@ type TravelFormProps = {
   language: "ko" | "ja";
   budget: string;
   days: string;
+  startDate: string;
+  endDate: string;
   companion: string;
   travelStyle: string;
   interests: string[];
@@ -12,6 +14,8 @@ type TravelFormProps = {
   extraRequest: string;
   setBudget: (value: string) => void;
   setDays: (value: string) => void;
+  setStartDate: (value: string) => void;
+  setEndDate: (value: string) => void;
   setCompanion: (value: string) => void;
   setTravelStyle: (value: string) => void;
   setExtraRequest: (vlaue: string) => void;
@@ -23,6 +27,8 @@ export default function TravelForm({
   language,
   budget,
   days,
+  startDate,
+  endDate,
   companion,
   travelStyle,
   interests,
@@ -30,6 +36,8 @@ export default function TravelForm({
   isLoading,
   setBudget,
   setDays,
+  setStartDate,
+  setEndDate,
   setCompanion,
   setTravelStyle,
   setExtraRequest,
@@ -52,26 +60,33 @@ export default function TravelForm({
         onChange={(event) => setBudget(event.target.value)}
       />
 
-      <label htmlFor="days">{text.days}</label>
-      <select
-        id="days"
-        value={days}
-        onChange={(event) => setDays(event.target.value)}
-      >
-        <option value="2">2{text.dayUnit}</option>
-        <option value="3">3{text.dayUnit}</option>
-        <option value="4">4{text.dayUnit}</option>
-      </select>
+      <label htmlFor="start-date">
+        {language === "ko" ? "출발일" : "出発日"}
+      </label>
+      <input
+        id="start-date"
+        type="date"
+        value={startDate}
+        onChange={(event) => setStartDate(event.target.value)}
+      />
 
-      <p>
-        {text.enteredBudget}: {budget}
-        {text.budgetUnit}
-      </p>
+      <label htmlFor="end-date">
+        {language === "ko" ? "귀국일" : "帰国日"}
+      </label>
+      <input
+        id="end-date"
+        type="date"
+        value={endDate}
+        onChange={(event) => setEndDate(event.target.value)}
+      />
 
-      <p>
-        {text.selectedDays} : {days}
-        {text.dayUnit}
-      </p>
+      <div className="readonly-field">
+        <span>{text.days}</span>
+        <strong>
+          {days}
+          {text.dayUnit}
+        </strong>
+      </div>
 
       <label htmlFor="companion">{text.companion}</label>
       <select
