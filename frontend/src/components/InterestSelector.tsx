@@ -1,5 +1,5 @@
 type InterestSelectorProps = {
-    interests: string [];
+    interests: string[];
     interestLabels: Record<string, string>;
     handleInterestChange: (interest: string) => void;
     title: string;
@@ -16,24 +16,25 @@ export default function InterestSelector({
     selectedTitle,
 }: InterestSelectorProps) {
     return (
-    <>
-        <p>{title}</p>
+        <>
+            <label>{title}</label>
 
-        {interestOptions.map((interest) => (
-            <label key={interest}>
-                <input 
-                    type="checkbox"
-                    checked={interests.includes(interest)}
-                    onChange={() => handleInterestChange(interest)}
-                />
-                {interestLabels[interest]}
-            </label>
-        ))}
-
-        <p>
-            {selectedTitle}:{" "}
-            {interests.map((interest) => interestLabels[interest]).join(", ")}
-        </p>
-    </>
+            <div className="interest-options">
+                {interestOptions.map((interest) => (
+                    <label key={interest} className="">
+                        <input
+                            type="checkbox"
+                            checked={interests.includes(interest)}
+                            onChange={() => handleInterestChange(interest)}
+                        />
+                        {interestLabels[interest]}
+                    </label>
+                ))}
+            </div>
+            <p>
+                {selectedTitle}:{" "}
+                {interests.map((interest) => interestLabels[interest]).join(", ")}
+            </p>
+        </>
     );
 }
