@@ -11,7 +11,8 @@ export default function Home() {
   const [days, setDays] = useState("2");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [companion, setCompanion] = useState("solo");
+  const [peopleCount, setPeopleCount] = useState("1");
+  const [companion, setCompanion] = useState("friend");
   const [travelStyle, setTravelStyle] = useState("relaxed");
   const [interests, setInterests] = useState<string[]>([]);
   const [extraRequest, setExtraRequest] = useState("");
@@ -29,12 +30,12 @@ export default function Home() {
     const startTime = new Date(start).getTime();
     const endTime = new Date(end).getTime();
 
-    if (startTime > endTime){
+    if (startTime > endTime) {
       return "";
     }
 
     const oneDay = 1000 * 60 * 60 * 24;
-    const diffDays = Math.floor((endTime - startTime) / oneDay) +1;
+    const diffDays = Math.floor((endTime - startTime) / oneDay) + 1;
 
     return String(diffDays);
   }
@@ -61,11 +62,16 @@ export default function Home() {
       return;
     }
 
-    if (interests.length === 0) {
-      setErrorMessage(text.interestRequired);
+    if (peopleCount === "") {
+      setErrorMessage(text.peopleCountRequired);
       return;
     }
-    
+
+    if (Number(peopleCount) < 1) {
+      setErrorMessage(text.peopleCountMinimum);
+      return;
+    }
+
     if (startDate === "") {
       setErrorMessage(text.startDateRequired);
       return;
@@ -80,52 +86,24 @@ export default function Home() {
       setErrorMessage(text.invalidDateRange);
       return;
     }
+
     
+    if (interests.length === 0) {
+      setErrorMessage(text.interestRequired);
+      return;
+    }
+
 
     setIsLoading(true);
 
-    const interestLabels =
-      language === "ko"
-        ? {
-          food: "맛집",
-          nature: "자연",
-          shopping: "쇼핑",
-          culture: "문화",
-        }
-        : {
-          food: "グルメ",
-          nature: "自然",
-          shopping: "ショッピング",
-          culture: "文化",
-        };
+    const interestLabels = text.interestLabels;
+    const companionLabels = text.companionLabels;
+    const travelStyleLabels = text.travelStyleLabels;
 
-    const companionLabels =
-      language === "ko"
-        ? {
-          solo: "혼자",
-          friend: "친구",
-          couple: "연인",
-          family: "가족",
-        }
-        : {
-          solo: "一人",
-          friend: "友達",
-          couple: "カップル",
-          family: "家族",
-        };
-
-    const travelStyleLabels =
-      language === "ko"
-        ? {
-          relaxed: "여유롭게",
-          balanced: "보통",
-          packed: "알차게",
-        }
-        : {
-          relaxed: "ゆったり",
-          balanced: "バランスよく",
-          packed: "しっかり観光",
-        };
+    const companionForRequest = 
+      Number(peopleCount) === 1
+      ? text.soloLabel
+      : companionLabels[companion as keyof typeof companionLabels];
 
     try {
       const response = await fetch("/api/recommend", {
@@ -139,7 +117,8 @@ export default function Home() {
           days,
           startDate,
           endDate,
-          companion: companionLabels[companion as keyof typeof companionLabels],
+          peopleCount: language === "ko" ?  `${peopleCount}명` : `${peopleCount}人`,
+          companion: companionForRequest,
           travelStyle: travelStyleLabels[travelStyle as keyof typeof travelStyleLabels],
           interests: interests.map(
             (interest) => interestLabels[interest as keyof typeof interestLabels]
@@ -184,6 +163,7 @@ export default function Home() {
         days={days}
         startDate={startDate}
         endDate={endDate}
+        peopleCount={peopleCount}
         companion={companion}
         travelStyle={travelStyle}
         interests={interests}
@@ -203,11 +183,12 @@ export default function Home() {
           setEndDate(value);
 
           const calculatedDays = calculateTravelDays(startDate, value);
-          if (calculatedDays === "") {
+          if (calculatedDays !== "") {
             setDays(calculatedDays);
           }
         }}
         setCompanion={setCompanion}
+        setPeopleCount={setPeopleCount}
         setTravelStyle={setTravelStyle}
         setExtraRequest={setExtraRequest}
         handleInterestChange={handleInterestChange}

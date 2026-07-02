@@ -87,6 +87,7 @@ export async function POST(request: Request) {
            - 여행 기간: ${body.days}일
            - 출발일: ${body.startDate || "미정"}
            - 귀국일: ${body.endDate || "미정"}
+           - 인원수: ${body.peopleCount}
            - 동행 유형: ${body.companion}
            - 여행 스타일: ${body.travelStyle}
            - 관심사: ${(body.interests ?? [])

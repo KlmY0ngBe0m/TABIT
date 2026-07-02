@@ -13,6 +13,12 @@ export const translations = {
         endDateRequired: "귀국일을 선택해주세요",
         invalidDateRange: "귀국일은 출발일 보다 늦어야 합니다.",
         companion: "동행 유형",
+        peopleCount: "인원수",
+        peopleCountPlaceholder: "예: 2",
+        personUnit: "명",
+        peopleMoreUnit: "명 이상",
+        peopleCountRequired: "인원수를 입력해주세요.",
+        peopleCountMinimum: "인원수는 1명 이상 입력해주세요.",
         travelStyle: "여행 스타일",
         interests: "관심사",
         selectedInterests: "선택한 관심사",
@@ -31,7 +37,6 @@ export const translations = {
             culture: "문화",
         },
         companionLabels: {
-            solo: "혼자",
             friend: "친구",
             couple: "연인",
             family: "가족",
@@ -45,6 +50,7 @@ export const translations = {
         recommendationReason: "추천 이유",
         estimatedBudget: "예상 예산",
         samplePlan: "간단 일정",
+        soloLabel: "혼자",
     },
 
     ja: {
@@ -59,6 +65,12 @@ export const translations = {
         endDateRequired: "帰国日を選択してください。",
         invalidDateRange: "帰国日は出発日より後の日付を選択してください。",
         companion: "同行者",
+        peopleCount: "人数",
+        peopleCountPlaceholder: "例: 2",
+        personUnit: "人",
+        peopleMoreUnit: "人以上",
+        peopleCountRequired: "人数を入力してください。",
+        peopleCountMinimum: "人数は1人以上で入力してください。",
         travelStyle: "旅行スタイル",
         interests: "興味",
         selectedInterests: "選択した興味",
@@ -76,7 +88,6 @@ export const translations = {
             culture: "文化",
         },
         companionLabels: {
-            solo: "一人",
             friend: "友人",
             couple: "恋人",
             family: "家族",
@@ -90,5 +101,6 @@ export const translations = {
         recommendationReason: "おすすめの理由",
         estimatedBudget: "予想予算",
         samplePlan: "簡単な旅程",
+        soloLabel: "一人",
     },
 };

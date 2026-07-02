@@ -8,6 +8,7 @@ type TravelFormProps = {
   startDate: string;
   endDate: string;
   companion: string;
+  peopleCount: string;
   travelStyle: string;
   interests: string[];
   isLoading: boolean;
@@ -17,8 +18,9 @@ type TravelFormProps = {
   setStartDate: (value: string) => void;
   setEndDate: (value: string) => void;
   setCompanion: (value: string) => void;
+  setPeopleCount: (value: string) => void;
   setTravelStyle: (value: string) => void;
-  setExtraRequest: (vlaue: string) => void;
+  setExtraRequest: (value: string) => void;
   handleInterestChange: (interest: string) => void;
   handleRecommendClick: () => void;
 };
@@ -30,6 +32,7 @@ export default function TravelForm({
   startDate,
   endDate,
   companion,
+  peopleCount,
   travelStyle,
   interests,
   extraRequest,
@@ -39,6 +42,7 @@ export default function TravelForm({
   setStartDate,
   setEndDate,
   setCompanion,
+  setPeopleCount,
   setTravelStyle,
   setExtraRequest,
   handleInterestChange,
@@ -88,18 +92,31 @@ export default function TravelForm({
         </strong>
       </div>
 
-      <label htmlFor="companion">{text.companion}</label>
-      <select
-        id="companion"
-        value={companion}
-        onChange={(event) => setCompanion(event.target.value)}
-      >
-        <option value="solo">{text.companionLabels.solo}</option>
-        <option value="friend">{text.companionLabels.friend}</option>
-        <option value="couple">{text.companionLabels.couple}</option>
-        <option value="family">{text.companionLabels.family}</option>
-      </select>
+      <label htmlFor="people-count">{text.peopleCount}</label>
+      <input
+        id="people-count"
+        type="number"
+        min="1"
+        max="20"
+        value={peopleCount}
+        onChange={(event) => setPeopleCount(event.target.value)}
+        placeholder={text.peopleCountPlaceholder}
+      />
 
+      {Number(peopleCount) >= 2 && (
+        <>
+          <label htmlFor="companion">{text.companion}</label>
+          <select
+            id="companion"
+            value={companion}
+            onChange={(event) => setCompanion(event.target.value)}
+          >
+            <option value="friend">{text.companionLabels.friend}</option>
+            <option value="couple">{text.companionLabels.couple}</option>
+            <option value="family">{text.companionLabels.family}</option>
+          </select>
+        </>
+      )}
       <label htmlFor="travel-style">{text.travelStyle}</label>
       <select
         id="travel-style"
@@ -110,13 +127,6 @@ export default function TravelForm({
         <option value="balanced">{text.travelStyleLabels.balanced}</option>
         <option value="packed">{text.travelStyleLabels.packed}</option>
       </select>
-
-      <p>
-        {text.selectedCompanion}: {text.companionLabels[companion as keyof typeof text.companionLabels]}
-      </p>
-      <p>
-        {text.selectedTravelStyle}: {text.travelStyleLabels[travelStyle as keyof typeof text.travelStyleLabels]}
-      </p>
 
       <InterestSelector
         interests={interests}
@@ -161,7 +171,7 @@ export default function TravelForm({
         }
       />
 
-      <p className="character-count"> 
+      <p className="character-count">
         {extraRequest.length}/100
       </p>
 
