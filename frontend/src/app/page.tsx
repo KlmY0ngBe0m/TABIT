@@ -5,6 +5,19 @@ import { useState } from "react";
 import RecommendationCard from "@/components/RecommendationCard";
 import TravelForm from "@/components/TravelForm";
 import { type RecommendationResult } from "@/lib/recommendation";
+import ConditionSummary from "@/components/ConditionSummary";
+
+type SubmittedCondition = {
+  budget: string;
+  days: string;
+  startDate: string;
+  endDate: string;
+  peopleCount: string;
+  companion: string;
+  travelStyle: string;
+  interests: string[];
+  extraRequest: string;
+};
 
 export default function Home() {
   const [budget, setBudget] = useState("");
@@ -18,6 +31,8 @@ export default function Home() {
   const [extraRequest, setExtraRequest] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [recommendation, setRecommendation] = useState<RecommendationResult | null>(null);
+  const [submittedCondition, setSubmittedCondition] = useState<SubmittedCondition | null>(null);
+  const [isConditionVisible, setIsConditionVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
   const text = translations[language];
@@ -50,6 +65,8 @@ export default function Home() {
   async function handleRecommendClick() {
     setErrorMessage("");
     setRecommendation(null);
+    setSubmittedCondition(null);
+    setIsConditionVisible(false);
     const minimumBudget = language === "ko" ? 30 : 30000;
 
     if (budget === "") {
@@ -87,12 +104,58 @@ export default function Home() {
       return;
     }
 
-    
+
     if (interests.length === 0) {
       setErrorMessage(text.interestRequired);
       return;
     }
 
+    const confirmMessage = [
+      `${text.confirmTitle}`,
+      "",
+      `${text.confirmBudget}: ${budget}${text.budgetUnit}`,
+      `${text.confirmDays}: ${days}${text.dayUnit}`,
+      `${text.confirmStartDate}: ${startDate}`,
+      `${text.confirmEndDate}: ${endDate}`,
+      `${text.confirmPeopleCount}: ${peopleCount}${text.personUnit}`,
+      `${text.confirmCompanion}: ${Number(peopleCount) === 1
+        ? text.soloLabel
+        : text.companionLabels[companion as keyof typeof text.companionLabels]
+      }`,
+      `${text.confirmTravelStyle}: ${text.travelStyleLabels[travelStyle as keyof typeof text.travelStyleLabels]
+      }`,
+      `${text.confirmInterests}: ${interests
+        .map(
+          (interest) =>
+            text.interestLabels[interest as keyof typeof text.interestLabels]
+        ).join(", ")}`,
+      extraRequest !== "" ? `${text.confirmExtraRequest}: ${extraRequest}` : "",
+    ].join("\n");
+
+    const isConfirmed = window.confirm(confirmMessage);
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    setSubmittedCondition({
+      budget: `${budget}${text.budgetUnit}`,
+      days,
+      startDate,
+      endDate,
+      peopleCount: `${peopleCount}${text.personUnit}`,
+      companion:
+        Number(peopleCount) === 1
+          ? text.soloLabel
+          : text.companionLabels[companion as keyof typeof text.companionLabels],
+      travelStyle: text.travelStyleLabels[
+        travelStyle as keyof typeof text.travelStyleLabels
+      ],
+      interests: interests.map(
+        (interest) => text.interestLabels[interest as keyof typeof text.interestLabels]
+      ),
+      extraRequest,
+    });
 
     setIsLoading(true);
 
@@ -100,10 +163,10 @@ export default function Home() {
     const companionLabels = text.companionLabels;
     const travelStyleLabels = text.travelStyleLabels;
 
-    const companionForRequest = 
+    const companionForRequest =
       Number(peopleCount) === 1
-      ? text.soloLabel
-      : companionLabels[companion as keyof typeof companionLabels];
+        ? text.soloLabel
+        : companionLabels[companion as keyof typeof companionLabels];
 
     try {
       const response = await fetch("/api/recommend", {
@@ -113,11 +176,11 @@ export default function Home() {
         },
 
         body: JSON.stringify({
-          budget: language === "ko" ? `${budget}만 원` : `${budget}円`,
+          budget: `${budget}${text.budgetUnit}`,
           days,
           startDate,
           endDate,
-          peopleCount: language === "ko" ?  `${peopleCount}명` : `${peopleCount}人`,
+          peopleCount: `${peopleCount}${text.personUnit}`,
           companion: companionForRequest,
           travelStyle: travelStyleLabels[travelStyle as keyof typeof travelStyleLabels],
           interests: interests.map(
@@ -196,6 +259,25 @@ export default function Home() {
       />
 
       {errorMessage !== "" && <p className="error-message">{errorMessage}</p>}
+
+      {submittedCondition && (
+        <>
+          <button
+            type="button"
+            className="condition-toggle-button"
+            onClick={() => setIsConditionVisible(!isConditionVisible)}
+          >
+            {isConditionVisible ? "선택한 여행 조건 숨기기" : "선택한 여행 조건 보기"}
+          </button>
+
+          {isConditionVisible && (
+            <ConditionSummary
+             condition={submittedCondition}
+             language={language}
+              />
+          )}
+        </>
+      )}
 
       {isLoading && (
         <p>
