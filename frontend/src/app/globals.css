@@ -89,8 +89,6 @@ textarea {
 input[type="date"] {
   min-width: 0;
   max-width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
 }
 
 input:focus,
@@ -193,7 +191,7 @@ button {
   border-radius: 10px;
   font-weight: 700;
   cursor: pointer;
-  transition: backround-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 button:hover {
