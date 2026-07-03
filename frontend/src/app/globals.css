@@ -86,6 +86,13 @@ textarea {
   color: var(--foreground);
 }
 
+input[type="date"] {
+  min-width: 0;
+  max-width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 input:focus,
 select:focus {
   outline: 3px solid rgba(37, 99, 235, 0.18);
@@ -255,6 +262,13 @@ main>button {
     font-size: 36px;
   }
 
+  input,
+  select,
+  textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .travel-form,
   .result-card {
     padding: 22px;
@@ -267,6 +281,23 @@ main>button {
 
   main>button {
     width: auto;
+  }
+
+  .condition-summary dl {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .condition-summary div {
+    padding: 8px;
+  }
+
+  .condition-summary dt {
+    font-size: 12px;
+  }
+
+  .condition-summary dd {
+    font-size: 13px;
   }
 }
 
@@ -321,7 +352,7 @@ button:disabled:hover {
 .condition-summary {
   margin-top: 16px;
   padding: 20px;
-  background-color:#ffffff;
+  background-color: #ffffff;
   border: 1px solid #dbeafe;
   border-radius: 14px;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
@@ -349,23 +380,4 @@ button:disabled:hover {
   font-size: 14px;
   font-weight: 700;
   color: #0f172a;
-}
-
-@media (max-width: 640px) {
-  .condition-summary dl {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .condition-summary div {
-    padding: 8px;
-  }
-
-  .condition-summary dt {
-    font-size: 12px;
-  }
-
-  .condition-summary dd {
-    font-size: 13px;
-  }
 }
