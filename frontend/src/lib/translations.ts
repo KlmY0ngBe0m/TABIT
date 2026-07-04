@@ -49,6 +49,7 @@ export const translations = {
         recommendationReason: "추천 이유",
         estimatedBudget: "예상 예산",
         samplePlan: "간단 일정",
+        planDaySuffix: "일차",
         soloLabel: "혼자",
         selectedTravelCondition: "선택한 여행 조건",
         confirmTitle: "입력한 조건으로 여행지를 추천할까요?",
@@ -61,6 +62,9 @@ export const translations = {
         confirmTravelStyle: "여행 스타일",
         confirmInterests: "관심사",
         confirmExtraRequest: "추가 요청",
+        showSelectedCondition: "선택한 여행 조건 보기",
+        hideSelectedCondition: "선택한 여행 조건 숨기기",
+        resultLabel: "추천 일정"
     },
 
     ja: {
@@ -111,6 +115,7 @@ export const translations = {
         recommendationReason: "おすすめの理由",
         estimatedBudget: "予想予算",
         samplePlan: "簡単な旅程",
+        planDaySuffix: "일차",
         soloLabel: "一人",
         confirmTitle: "入力した条件で旅行先をおすすめしますか？",
         selectedTravelCondition: "選択した旅行条件",
@@ -123,5 +128,8 @@ export const translations = {
         confirmTravelStyle: "旅行スタイル",
         confirmInterests: "興味",
         confirmExtraRequest: "追加リクエスト",
+        showSelectedCondition: "選択した旅行条件を見る",
+        hideSelectedCondition: "選択した旅行条件を隠す",
+        resultLabel: "おすすめプラン",
     },
 };

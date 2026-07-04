@@ -95,13 +95,17 @@ export async function POST(request: Request) {
             .join(", ")}
            - 언어: ${body.language}
            - 추가요청: ${body.extraRequest || "없음"}
+           - samplePlan에는 "1일차:", "2일차:" 같은 날짜 번호를 넣지 말고 일정 내용만 작성해줘.
 
             반환 형식:  
             {
               "recommendedCity": "도시명",
               "recommendationReason": "추천 이유",
               "estimatedBudget": "예상 예산",
-              "samplePlan": ["1일차 일정", "2일차 일정", "3일차 일정"]
+              "samplePlan": [
+              "1일차: 하루 일정 내용만 작성 '1일차:' 같은 날짜 표시는 쓰지 않음",
+              "2일차: 하루 일정 내용만 작성 '2일차:' 같은 날짜 표시는 쓰지 않음",
+              ]
             }
                     `,
 

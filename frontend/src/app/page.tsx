@@ -267,14 +267,16 @@ export default function Home() {
             className="condition-toggle-button"
             onClick={() => setIsConditionVisible(!isConditionVisible)}
           >
-            {isConditionVisible ? "선택한 여행 조건 숨기기" : "선택한 여행 조건 보기"}
+            {isConditionVisible
+              ? text.hideSelectedCondition
+              : text.showSelectedCondition}
           </button>
 
           {isConditionVisible && (
             <ConditionSummary
-             condition={submittedCondition}
-             language={language}
-              />
+              condition={submittedCondition}
+              language={language}
+            />
           )}
         </>
       )}

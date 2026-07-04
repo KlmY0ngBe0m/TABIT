@@ -21,11 +21,13 @@ export default function RecommendationCard({
   const text = translations[language];
   return (
     <section className="result-card">
+      <p className="result-label">{text.resultLabel}</p>
+
       <h2>
         {text.recommendedDestination}: {recommendation.recommendedCity}
       </h2>
 
-      <div className="result-setion">
+      <div className="result-section">
         <strong>{text.recommendationReason}</strong>
         <p>{recommendation.recommendationReason}</p>
       </div>
@@ -36,13 +38,19 @@ export default function RecommendationCard({
       </div>
 
       <div className="result-section">
-      <h3>{text.samplePlan}</h3>
+        <strong>{text.samplePlan}</strong>
+        <ul className="plan-list">
+          {recommendation.samplePlan.slice(0, Number(days)).map((plan, index) => (
+            <li key={plan}>
+              <span>
+                {index + 1}
+                {text.planDaySuffix}
+              </span>
+              <p>{plan}</p>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul>
-        {recommendation.samplePlan.slice(0, Number(days)).map((plan) => (
-          <li key={plan}>{plan}</li>
-        ))}
-      </ul>
     </section>
   );
 }
