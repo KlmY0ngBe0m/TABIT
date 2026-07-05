@@ -1,4 +1,5 @@
 import InterestSelector from "./InterestSelector";
+import RegionSelector from "./RegionSelector";
 import { translations } from "@/lib/translations";
 
 type TravelFormProps = {
@@ -9,6 +10,7 @@ type TravelFormProps = {
   endDate: string;
   companion: string;
   peopleCount: string;
+  selectedRegion: string;
   travelStyle: string;
   interests: string[];
   isLoading: boolean;
@@ -19,6 +21,7 @@ type TravelFormProps = {
   setEndDate: (value: string) => void;
   setCompanion: (value: string) => void;
   setPeopleCount: (value: string) => void;
+  setSelectedRegion: (value: string) => void;
   setTravelStyle: (value: string) => void;
   setExtraRequest: (value: string) => void;
   handleInterestChange: (interest: string) => void;
@@ -33,6 +36,7 @@ export default function TravelForm({
   endDate,
   companion,
   peopleCount,
+  selectedRegion,
   travelStyle,
   interests,
   extraRequest,
@@ -43,6 +47,7 @@ export default function TravelForm({
   setEndDate,
   setCompanion,
   setPeopleCount,
+  setSelectedRegion,
   setTravelStyle,
   setExtraRequest,
   handleInterestChange,
@@ -101,6 +106,15 @@ export default function TravelForm({
         value={peopleCount}
         onChange={(event) => setPeopleCount(event.target.value)}
         placeholder={text.peopleCountPlaceholder}
+      />
+
+      <RegionSelector
+        selectedRegion={selectedRegion}
+        regionLabels={text.regionLabels}
+        title={text.region}
+        description={text.regionDescription}
+        selectedTitle={text.selectedRegion}
+        setSelectedRegion={setSelectedRegion}
       />
 
       {Number(peopleCount) >= 2 && (

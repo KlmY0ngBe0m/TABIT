@@ -304,6 +304,65 @@ main>button {
   .condition-summary dd {
     font-size: 13px;
   }
+
+  .region-map {
+    height: 300px;
+  }
+
+  .region-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .region-undecided {
+    top: 14px;
+    left: 14px;
+  }
+
+  .region-hokkaido {
+    top: 24px;
+    right: 18px;
+  }
+
+  .region-tohoku {
+    top: 86px;
+    right: 50px;
+  }
+
+  .region-kanto {
+    top: 150px;
+    right: 52px;
+  }
+
+  .region-chubu {
+    top: 160px;
+    right: 126px;
+  }
+
+  .region-kansai {
+    top: 206px;
+    left: 148px;
+  }
+
+  .region-chugoku {
+    top: 184px;
+    left: 62px;
+  }
+
+  .region-shikoku {
+    top: 236px;
+    left: 110px;
+  }
+
+  .region-kyushu {
+    top: 246px;
+    left: 24px;
+  }
+
+  .region-okinawa {
+    bottom: 14px;
+    left: 24px;
+  }
 }
 
 .result-section {
@@ -358,7 +417,7 @@ main>button {
   border-radius: 12px;
 }
 
-.plan-list li + li {
+.plan-list li+li {
   margin-top: 10px;
 }
 
@@ -438,4 +497,126 @@ button:disabled:hover {
   font-size: 14px;
   font-weight: 700;
   color: #0f172a;
+}
+
+.region-seletor {
+  margin-top: 18px;
+}
+
+.region-description {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.region-map {
+  position: relative;
+  height: 340px;
+  margin-top: 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 16%, rgba(37, 99, 235, 0.14) 0 12%, transparent 13%),
+    radial-gradient(circle at 68% 34%, rgba(37, 99, 235, 0.12) 0 12%, transparent 11%),
+    radial-gradient(circle at 55% 50%, rgba(37, 99, 235, 0.1) 0 12%, transparent 12%),
+    radial-gradient(circle at 38% 60%, rgba(37, 99, 235, 0.1) 0 12%, transparent 14%),
+    linear-gradient(180deg, #eff6ff, #ffffff);
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+}
+
+.region-map::before {
+  content: "";
+  position: absolute;
+  inset: 24px 34px;
+  background: linear-gradient(135deg, rgba(147, 197, 253, 0-0.04), rgba(291, 234, 254, 0.18));
+  clip-path: polygon(76% 2%, 91% 8%, 86% 22%, 73% 21%, 69% 33%,
+      77% 43%, 66% 53%, 55% 49%, 49% 59%, 37% 58%,
+      29% 70%, 17% 66%, 10% 80%, 18% 92%, 6% 96%,
+      3% 84%, 11% 72%, 21% 62%, 32% 51%, 45% 47%,
+      54% 37%, 63% 30%, 68% 15%);
+}
+
+.region-button {
+  position: absolute;
+  z-index: 1;
+  min-height: 36px;
+  margin-top: 0;
+  padding: 7px 12px;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--primary);
+  border: 1px solid #93c5fd;
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.12);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.region-button:hover {
+  background-color: #eff6ff;
+  color: var(--primary-dark);
+}
+
+.region-button.selected {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.region-undecided {
+  top: 18px;
+  left: 18px;
+}
+
+.region-hokkaido {
+  top: 26px;
+  right: 30px;
+}
+
+.region-tohoku {
+  top: 92px;
+  right: 72px;
+}
+
+.region-kanto {
+  top: 158px;
+  right: 82px;
+}
+
+.region-chubu {
+  top: 170px;
+  right: 170px;
+}
+
+.region-kansai {
+  top: 212px;
+  left: 218px;
+}
+
+.region-chugoku {
+  top: 188px;
+  left: 98px;
+}
+
+.region-shikoku {
+  top: 242px;
+  left: 160px;
+}
+
+.region-kyushu {
+  top: 230px;
+  left: 52px;
+}
+
+.region-okinawa {
+  bottom: 26px;
+  left: 58px;
+}
+
+.selected-region {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.selected-region strong {
+  color: var(--primary);
 }

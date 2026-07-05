@@ -13,6 +13,7 @@ type SubmittedCondition = {
   startDate: string;
   endDate: string;
   peopleCount: string;
+  selectedRegion: string;
   companion: string;
   travelStyle: string;
   interests: string[];
@@ -25,6 +26,7 @@ export default function Home() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [peopleCount, setPeopleCount] = useState("1");
+  const [selectedRegion, setSelectedRegion] = useState("");
   const [companion, setCompanion] = useState("friend");
   const [travelStyle, setTravelStyle] = useState("relaxed");
   const [interests, setInterests] = useState<string[]>([]);
@@ -105,10 +107,19 @@ export default function Home() {
     }
 
 
+    if (selectedRegion === "") {
+      setErrorMessage(text.regionRequired);
+      return;
+    }
+
+
     if (interests.length === 0) {
       setErrorMessage(text.interestRequired);
       return;
     }
+
+    const selectedRegionLabel =
+      text.regionLabels[selectedRegion as keyof typeof text.regionLabels];
 
     const confirmMessage = [
       `${text.confirmTitle}`,
@@ -118,6 +129,7 @@ export default function Home() {
       `${text.confirmStartDate}: ${startDate}`,
       `${text.confirmEndDate}: ${endDate}`,
       `${text.confirmPeopleCount}: ${peopleCount}${text.personUnit}`,
+      `${text.confirmRegion}: ${selectedRegionLabel}`,
       `${text.confirmCompanion}: ${Number(peopleCount) === 1
         ? text.soloLabel
         : text.companionLabels[companion as keyof typeof text.companionLabels]
@@ -144,6 +156,7 @@ export default function Home() {
       startDate,
       endDate,
       peopleCount: `${peopleCount}${text.personUnit}`,
+      selectedRegion: selectedRegionLabel,
       companion:
         Number(peopleCount) === 1
           ? text.soloLabel
@@ -181,6 +194,7 @@ export default function Home() {
           startDate,
           endDate,
           peopleCount: `${peopleCount}${text.personUnit}`,
+          selectedRegion: selectedRegionLabel,
           companion: companionForRequest,
           travelStyle: travelStyleLabels[travelStyle as keyof typeof travelStyleLabels],
           interests: interests.map(
@@ -227,6 +241,7 @@ export default function Home() {
         startDate={startDate}
         endDate={endDate}
         peopleCount={peopleCount}
+        selectedRegion={selectedRegion}
         companion={companion}
         travelStyle={travelStyle}
         interests={interests}
@@ -252,6 +267,7 @@ export default function Home() {
         }}
         setCompanion={setCompanion}
         setPeopleCount={setPeopleCount}
+        setSelectedRegion={setSelectedRegion}
         setTravelStyle={setTravelStyle}
         setExtraRequest={setExtraRequest}
         handleInterestChange={handleInterestChange}

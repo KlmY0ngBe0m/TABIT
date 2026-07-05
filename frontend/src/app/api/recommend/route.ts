@@ -88,6 +88,7 @@ export async function POST(request: Request) {
            - 출발일: ${body.startDate || "미정"}
            - 귀국일: ${body.endDate || "미정"}
            - 인원수: ${body.peopleCount}
+           - 선택 지역: ${body.selectedRegion}
            - 동행 유형: ${body.companion}
            - 여행 스타일: ${body.travelStyle}
            - 관심사: ${(body.interests ?? [])
@@ -97,6 +98,10 @@ export async function POST(request: Request) {
            - 추가요청: ${body.extraRequest || "없음"}
            - samplePlan에는 "1일차:", "2일차:" 같은 날짜 번호를 넣지 말고 일정 내용만 작성해줘.
 
+           규칙:
+           - 선택 지역이 "아직 정하지 않음" 또는 "まだ決めていない"이면 일본 전체에서 조건에 맞는 여행지를 추천해줘.
+           - 그 외 지역이 선택되어 있으면 반드시 해당 지역 안에서 여행지를 추천해줘.
+           
             반환 형식:  
             {
               "recommendedCity": "도시명",

@@ -6,6 +6,7 @@ type SubmittedCondition = {
     startDate: string;
     endDate: string;
     peopleCount: string;
+    selectedRegion:string;
     companion: string;
     travelStyle: string;
     interests: string[];
@@ -51,6 +52,11 @@ export default function ConditionSummary({
                 <div>
                     <dt>{text.confirmPeopleCount}</dt>
                     <dd>{condition.peopleCount}</dd>
+                </div>
+
+                <div>
+                    <dt>{text.confirmRegion}</dt>
+                    <dd>{text.selectedRegion}</dd>
                 </div>
 
                 <div>
