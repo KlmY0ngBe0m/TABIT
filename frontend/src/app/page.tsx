@@ -224,15 +224,18 @@ export default function Home() {
 
   return (
     <main>
-      <button
-        type="button"
-        onClick={() => setLanguage(language === "ko" ? "ja" : "ko")}
-      >
-        {language === "ko" ? "日本語" : "한국어"}
-      </button>
-      <h1>TABIT</h1>
+      <header className="hero">
+        <button
+          type="button"
+          className="language-toggle"
+          onClick={() => setLanguage(language === "ko" ? "ja" : "ko")}
+        >
+          {language === "ko" ? "日本語" : "한국어"}
+        </button>
 
-      <p>{text.description}</p>
+        <h1>TABIT</h1>
+        <p>{text.description}</p>
+      </header>
 
       <TravelForm
         language={language}

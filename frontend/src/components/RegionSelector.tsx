@@ -41,7 +41,13 @@ export default function RegionSelector({
                         type="button"
                         className={`region-button region-${region} ${selectedRegion === region ? "selected" : ""
                             }`}
-                        onClick={() => setSelectedRegion(region)}
+                        onClick={() => {
+                            if (selectedRegion === region) {
+                                setSelectedRegion("");
+                            } else {
+                                setSelectedRegion(region);
+                            }
+                        }}
                     >
                         {regionLabels[region]}
                     </button>
@@ -49,7 +55,8 @@ export default function RegionSelector({
             </div>
 
             <p className="selected-region">
-                {selectedTitle}: <strong>{regionLabels[selectedRegion]}</strong>
+                {selectedTitle}:{" "}
+                <strong>{selectedRegion === "" ? "-" : regionLabels[selectedRegion]}</strong>
             </p>
         </section>
     );

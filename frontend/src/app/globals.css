@@ -39,32 +39,86 @@ select {
 }
 
 main {
-  width: min(100%, 720px);
+  width: min(100%, 640px);
   margin: 0 auto;
-  padding: 48px 24px 72px;
+  padding: 24px 20px 64px;
 }
 
-h1 {
-  margin-top: 12px;
+.hero {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.language-toggle {
+  margin: 0;
+  padding: 9px, 14px;
+  min-height: auto;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.hero h1 {
+  margin-top: 8px;
   font-size: 44px;
   line-height: 1;
   letter-spacing: -0.04em;
   color: #0f172a;
 }
 
-main>p {
-  margin-top: 12px;
+.hero p {
+  margin-top: 8px;
   color: #334155;
-  font-size: 17px;
+  font-size: 16px;  
 }
 
 .travel-form {
-  margin-top: 32px;
-  padding: 28px;
+  margin-top: 10px;
+  padding: 18px;
   background-color: var(--card);
   border: 1px solid #e5e7eb;
   border-radius: 18px;
   box-shadow: 0 16px 40px rgb(15, 23, 42, 0.08);
+}
+
+.form-section {
+  margin-top: 18px;
+  padding: 18px;
+  background-color: #fbfdff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+.form-section:first-child {
+  margin-top: 0;
+}
+
+.form-section h2 {
+  margin-bottom: 14px;
+  font-size: 17px;
+  color: #0f172a;
+}
+
+.form-section label:first-of-type {
+  margin-top: 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;  
+}
+
+.single-field {
+  margin-top: 0px; 
+}
+
+.form-field label {
+  margin-top: 0px; 
+}
+
+.form-field select,
+.form-field input {
+  min-height: 44px;
 }
 
 label {
@@ -78,7 +132,7 @@ select,
 textarea {
   width: 100%;
   max-width: 100%;
-  padding: 12px 14px;
+  padding: 10px 12px;
   margin-top: 8px;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -204,13 +258,6 @@ button:active {
   transform: translateY(0);
 }
 
-main>button {
-  margin: 0;
-  padding: 9px 14px;
-  border-radius: 999px;
-  font-size: 14px;
-}
-
 .error-message {
   margin-top: 20px;
   padding: 14px 16px;
@@ -256,7 +303,9 @@ main>button {
 
 @media (max-width: 640px) {
   main {
-    padding: 28px 16px 56px;
+    width: min(100%, 640px);
+    margin: 0 auto;
+    padding: 36px 20px 64px;
   }
 
   h1 {
@@ -275,6 +324,14 @@ main>button {
     padding: 22px;
     border-radius: 14px;
   }
+  
+  .form-section {
+    padding: 18px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 
   .condition-toggle-button {
     width: 100%;
@@ -284,7 +341,7 @@ main>button {
     width: 100%;
   }
 
-  main>button {
+  .language-toggle {
     width: auto;
   }
 
@@ -310,6 +367,7 @@ main>button {
   }
 
   .region-button {
+    width: auto;
     padding: 6px 10px;
     font-size: 12px;
   }
@@ -355,13 +413,13 @@ main>button {
   }
 
   .region-kyushu {
-    top: 246px;
-    left: 24px;
+    top: 210px;
+    left: 54px;
   }
 
   .region-okinawa {
-    bottom: 14px;
-    left: 24px;
+    bottom: 42px;
+    left: 58px;
   }
 }
 
@@ -511,7 +569,7 @@ button:disabled:hover {
 
 .region-map {
   position: relative;
-  height: 340px;
+  height: 360px;
   margin-top: 14px;
   overflow: hidden;
   background:
@@ -588,22 +646,22 @@ button:disabled:hover {
 }
 
 .region-kansai {
-  top: 212px;
+  top: 180px;
   left: 218px;
 }
 
 .region-chugoku {
-  top: 188px;
+  top: 162px;
   left: 98px;
 }
 
 .region-shikoku {
-  top: 242px;
+  top: 208px;
   left: 160px;
 }
 
 .region-kyushu {
-  top: 230px;
+  top: 214px;
   left: 52px;
 }
 
