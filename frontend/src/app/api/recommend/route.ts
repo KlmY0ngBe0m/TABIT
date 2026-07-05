@@ -57,11 +57,22 @@ function createFallbackRecommendation(interests: string[]) {
   };
 }
 
-
+const regionCityMap: Record<string, string[]> = {
+  홋카이도: ["삿포로", "하코다테", "오타루", "후라노", "비에이", "아사히카와"],
+  도호쿠: ["센다이", "아오모리", "아키타", "야마가타", "모리오카", "후쿠시마"],
+  간토: ["도쿄", "요코하마", "가마쿠라", "하코네", "닛코", "치바"],
+  주부: ["나고야", "가나자와", "다카야마", "나가노", "시즈오카", "니가타"],
+  간사이: ["오사카", "교토", "고베", "나라", "와카야마", "히메지"],
+  주고쿠: ["히로시마", "오카야마", "마쓰에", "돗토리", "야마구치"],
+  시코쿠: ["마쓰야마", "다카마쓰", "고치", "도쿠시마"],
+  규슈: ["후쿠오카", "나가사키", "구마모토", "가고시마", "벳푸", "유후인", "미야자키"],
+  오키나와: ["나하", "이시가키", "미야코지마", "온나", "나고"],
+};
 
 export async function POST(request: Request) {
   const apiKey = process.env.OPENAI_API_KEY;
   const body = await request.json();
+  const regionCandidateCities = regionCityMap[body.selectedRegion] ?? [];
 
   if (!apiKey) {
     const recommendation = createFallbackRecommendation(body.interests ?? []);
@@ -89,6 +100,7 @@ export async function POST(request: Request) {
            - 귀국일: ${body.endDate || "미정"}
            - 인원수: ${body.peopleCount}
            - 선택 지역: ${body.selectedRegion}
+           - 선택 지역의 대표 후보 도시: ${regionCandidateCities.join(", ")}
            - 동행 유형: ${body.companion}
            - 여행 스타일: ${body.travelStyle}
            - 관심사: ${(body.interests ?? [])
@@ -101,7 +113,9 @@ export async function POST(request: Request) {
            규칙:
            - 선택 지역이 "아직 정하지 않음" 또는 "まだ決めていない"이면 일본 전체에서 조건에 맞는 여행지를 추천해줘.
            - 그 외 지역이 선택되어 있으면 반드시 해당 지역 안에서 여행지를 추천해줘.
-           
+           - 대표 후보 도시는 참고용이며, 같은 지역 안의 다른 소도시를 추천해도 됩니다.
+           - 단, 선택 지역 밖의 도시는 추천하지 마세요.
+
             반환 형식:  
             {
               "recommendedCity": "도시명",
@@ -136,6 +150,15 @@ export async function POST(request: Request) {
     }
 
     const recommendation = JSON.parse(aiText);
+
+    const allowedCities = regionCityMap[body.selectedRegion];
+
+    if (
+      allowedCities &&
+      !allowedCities.some((city) => recommendation.recommendedCity.includes(city))
+    ) {
+      throw new Error("Recommended city is outside selected region");
+    }
 
     return NextResponse.json(recommendation);
   } catch (error) {
