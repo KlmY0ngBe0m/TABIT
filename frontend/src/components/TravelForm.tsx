@@ -5,6 +5,7 @@ import { translations } from "@/lib/translations";
 type TravelFormProps = {
   language: "ko" | "ja";
   budget: string;
+  today: string;
   days: string;
   startDate: string;
   endDate: string;
@@ -31,6 +32,7 @@ type TravelFormProps = {
 export default function TravelForm({
   language,
   budget,
+  today,
   days,
   startDate,
   endDate,
@@ -96,6 +98,7 @@ export default function TravelForm({
               id="start-date"
               type="date"
               value={startDate}
+              min={today}
               onChange={(event) => setStartDate(event.target.value)}
             />
           </div>
@@ -108,6 +111,7 @@ export default function TravelForm({
               id="end-date"
               type="date"
               value={endDate}
+              min={startDate || today}
               onChange={(event) => setEndDate(event.target.value)}
             />
           </div>

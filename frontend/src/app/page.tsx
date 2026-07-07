@@ -20,11 +20,21 @@ type SubmittedCondition = {
   extraRequest: string;
 };
 
+function formatDate(date: Date)  {
+  return date.toISOString().slice(0,10);
+}
+
+function getTommorrowDate() {
+  const tommorrow = new Date();
+  tommorrow.setDate(tommorrow.getDate() +1);
+  return formatDate(tommorrow);
+}
+
 export default function Home() {
   const [budget, setBudget] = useState("");
   const [days, setDays] = useState("2");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(formatDate(new Date ()));
+  const [endDate, setEndDate] = useState(getTommorrowDate());
   const [peopleCount, setPeopleCount] = useState("1");
   const [selectedRegion, setSelectedRegion] = useState("");
   const [companion, setCompanion] = useState("friend");
@@ -240,6 +250,7 @@ export default function Home() {
       <TravelForm
         language={language}
         budget={budget}
+        today={formatDate(new Date())}
         days={days}
         startDate={startDate}
         endDate={endDate}
