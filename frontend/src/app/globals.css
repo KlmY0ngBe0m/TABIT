@@ -345,6 +345,14 @@ button:active {
     width: auto;
   }
 
+  .plan-item {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-day {
+    width: fit-content;
+  }
+
   .condition-summary dl {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
@@ -421,6 +429,49 @@ button:active {
     bottom: 42px;
     left: 58px;
   }
+}
+
+.result-badge {
+  display: inline-flex;
+  padding: 6px 13px;
+  background-color: #eff6ff;
+  color: var(--primary);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.plan-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.plan-item {
+  display: grid;
+  grid-auto-columns: auto 1fr;
+  gap: 12px;
+  padding: 14px 16px;
+  background-color: #f8fafc;
+  border-radius: 14px;
+}
+
+.plan-day {
+  align-self: flex-start;
+  width: fit-content;
+  padding: 5px 10px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.plan-item p {
+  margin: 0;
+  color: #334155;
+  line-height: 1.7;
 }
 
 .result-section {

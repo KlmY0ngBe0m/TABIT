@@ -73,7 +73,11 @@ export default function TravelForm({
               type="number"
               placeholder={text.budgetPlaceholder}
               value={budget}
-              onChange={(event) => setBudget(event.target.value)}
+              onChange={(event) => {
+                const maxLength = language === "ko" ? 4 : 7;
+                const nextValue = event.target.value.slice(0, maxLength);
+                setBudget(nextValue);
+              }}
             />
           </div>
 
