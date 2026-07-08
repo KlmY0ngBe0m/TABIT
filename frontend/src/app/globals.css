@@ -45,13 +45,18 @@ main {
 }
 
 .hero {
+  position: relative;
   text-align: center;
   margin-bottom: 14px;
+  padding-top: 42px;
 }
 
 .language-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
   margin: 0;
-  padding: 9px, 14px;
+  padding: 9px 14px;
   min-height: auto;
   border-radius: 999px;
   font-size: 14px;
@@ -68,7 +73,7 @@ main {
 .hero p {
   margin-top: 8px;
   color: #334155;
-  font-size: 16px;  
+  font-size: 16px;
 }
 
 .travel-form {
@@ -105,15 +110,15 @@ main {
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;  
+  gap: 14px;
 }
 
 .single-field {
-  margin-top: 0px; 
+  margin-top: 0px;
 }
 
 .form-field label {
-  margin-top: 0px; 
+  margin-top: 0px;
 }
 
 .form-field select,
@@ -157,35 +162,47 @@ select:focus {
   color: var(--muted);
 }
 
-label:has(input[type="checkbox"]) {
+label:has(input[type="checkbox"]):not(.interest-option) {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   font-weight: 500;
 }
 
 
 input[type="checkbox"] {
+  flex-shrink: 0;
   width: 16px;
   height: 16px;
   margin-top: 0;
   accent-color: var(--primary);
 }
 
+.interest-section {
+  margin-top: 15px;
+}
+
 .interest-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 48px;
-  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .interest-option {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
   font-size: 14px;
-  cursor: pointer;
+  font-weight: 500;
+}
+
+.selected-interest {
+  margin-top: 15px;
 }
 
 textarea {
@@ -267,6 +284,25 @@ button:active {
   font-weight: 600;
 }
 
+.loading-message {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background-color: #eff6ff;
+  color: var(--primary);
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  margin-top: 0;
+}
+
 .result-card {
   margin-top: 28px;
   padding: 28px;
@@ -301,7 +337,7 @@ button:active {
   margin-top: 6px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 420px) {
   main {
     width: min(100%, 640px);
     margin: 0 auto;
@@ -324,11 +360,11 @@ button:active {
     padding: 22px;
     border-radius: 14px;
   }
-  
+
   .form-section {
     padding: 18px;
   }
-  
+
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -351,6 +387,14 @@ button:active {
 
   .plan-day {
     width: fit-content;
+  }
+
+  .form-actions {
+    display: block;
+  }
+
+  .form-actions button {
+    width: 100%;
   }
 
   .condition-summary dl {
@@ -445,19 +489,21 @@ button:active {
   display: grid;
   gap: 12px;
   margin-top: 12px;
+  padding-left: 0;
+  list-style: none;
 }
 
 .plan-item {
   display: grid;
-  grid-auto-columns: auto 1fr;
-  gap: 12px;
-  padding: 14px 16px;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 14px;
+  padding: 16px;
   background-color: #f8fafc;
   border-radius: 14px;
 }
 
 .plan-day {
-  align-self: flex-start;
   width: fit-content;
   padding: 5px 10px;
   background-color: var(--primary);
@@ -511,12 +557,6 @@ button:active {
   font-weight: 700;
 }
 
-.plan-list {
-  margin-top: 10px;
-  padding-left: 0;
-  list-style: none;
-}
-
 .plan-list li {
   display: flex;
   gap: 12px;
@@ -560,8 +600,13 @@ button:disabled:hover {
   background-color: #2563eb;
 }
 
+.result-condition-area {
+  margin: 0
+}
+
 .condition-toggle-button {
-  margin-top: 20px;
+  margin-top: 0px;
+  margin-bottom: 8px;
   width: auto;
   min-width: 180px;
   padding: 10px 16px;
@@ -608,7 +653,7 @@ button:disabled:hover {
   color: #0f172a;
 }
 
-.region-seletor {
+.region-selector {
   margin-top: 18px;
 }
 
@@ -723,6 +768,7 @@ button:disabled:hover {
 
 .selected-region {
   margin-top: 10px;
+  margin-bottom: 10px;
   color: var(--muted);
 }
 

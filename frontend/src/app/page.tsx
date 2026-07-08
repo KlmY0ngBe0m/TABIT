@@ -1,7 +1,7 @@
 "use client";
 
 import { translations, type Language } from "@/lib/translations";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RecommendationCard from "@/components/RecommendationCard";
 import TravelForm from "@/components/TravelForm";
 import { type RecommendationResult } from "@/lib/recommendation";
@@ -24,17 +24,17 @@ function formatDate(date: Date)  {
   return date.toISOString().slice(0,10);
 }
 
-function getTommorrowDate() {
-  const tommorrow = new Date();
-  tommorrow.setDate(tommorrow.getDate() +1);
-  return formatDate(tommorrow);
+function getTomorrowDate() {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() +1);
+  return formatDate(tomorrow);
 }
 
 export default function Home() {
   const [budget, setBudget] = useState("");
   const [days, setDays] = useState("2");
   const [startDate, setStartDate] = useState(formatDate(new Date ()));
-  const [endDate, setEndDate] = useState(getTommorrowDate());
+  const [endDate, setEndDate] = useState(getTomorrowDate());
   const [peopleCount, setPeopleCount] = useState("1");
   const [selectedRegion, setSelectedRegion] = useState("");
   const [companion, setCompanion] = useState("friend");
@@ -48,6 +48,14 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
   const text = translations[language];
+  const today= formatDate(new Date());
+
+  useEffect(() => {
+    const maxLength = language === "ko" ? 4 : 7;
+    if (budget.length > maxLength) {
+      setBudget(budget.slice(0, maxLength));
+    }
+  }, [language, budget]);
 
   function calculateTravelDays(start: string, end: string) {
     if (start === "" || end === "") {
@@ -250,7 +258,7 @@ export default function Home() {
       <TravelForm
         language={language}
         budget={budget}
-        today={formatDate(new Date())}
+        today={today}
         days={days}
         startDate={startDate}
         endDate={endDate}
@@ -290,32 +298,9 @@ export default function Home() {
 
       {errorMessage !== "" && <p className="error-message">{errorMessage}</p>}
 
-      {submittedCondition && (
-        <>
-          <button
-            type="button"
-            className="condition-toggle-button"
-            onClick={() => setIsConditionVisible(!isConditionVisible)}
-          >
-            {isConditionVisible
-              ? text.hideSelectedCondition
-              : text.showSelectedCondition}
-          </button>
-
-          {isConditionVisible && (
-            <ConditionSummary
-              condition={submittedCondition}
-              language={language}
-            />
-          )}
-        </>
-      )}
-
       {isLoading && (
-        <p>
-          {language === "ko"
-            ? "추천을 생성하는 중입니다..."
-            : "おすすめを作成しています..."}
+        <p className="loading-message">
+          {text.loadingButton}
         </p>
       )}
 
@@ -324,6 +309,9 @@ export default function Home() {
           recommendation={recommendation}
           days={days}
           language={language}
+          submittedCondition={submittedCondition}
+          isConditionVisible={isConditionVisible}
+          setIsConditionVisible={setIsConditionVisible}
         />
       )}
     </main>

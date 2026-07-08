@@ -56,7 +56,7 @@ export default function ConditionSummary({
 
                 <div>
                     <dt>{text.confirmRegion}</dt>
-                    <dd>{text.selectedRegion}</dd>
+                    <dd>{condition.selectedRegion}</dd>
                 </div>
 
                 <div>

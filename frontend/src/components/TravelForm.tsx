@@ -61,7 +61,7 @@ export default function TravelForm({
   return (
     <section className="travel-form">
       <div className="form-section">
-        <h2>1. 기본 여행 정보</h2>
+        <h2>1. {text.basicTravelInfo}</h2>
 
         <div className="form-grid">
           <div className="form-field">
@@ -96,7 +96,7 @@ export default function TravelForm({
 
           <div className="form-field">
             <label htmlFor="start-date">
-              {language === "ko" ? "출발일" : "出発日"}
+              {text.confirmStartDate}
             </label>
             <input
               id="start-date"
@@ -109,7 +109,7 @@ export default function TravelForm({
 
           <div className="form-field">
             <label htmlFor="end-date">
-              {language === "ko" ? "귀국일" : "帰国日"}
+              {text.confirmEndDate}
             </label>
             <input
               id="end-date"
@@ -131,7 +131,7 @@ export default function TravelForm({
       </div>
 
       <div className="form-section">
-        <h2>2. 여행 취향 선택</h2>
+        <h2>2. {text.travelPreference}</h2>
 
         <RegionSelector
           selectedRegion={selectedRegion}
@@ -183,11 +183,7 @@ export default function TravelForm({
       </div>
 
       <div className="form-section">
-        <h2>3. 추가 요청</h2>
-
-        <label htmlFor="extra-request">
-          {language === "ko" ? "추가 요청" : "追加リクエスト"}
-        </label>
+        <h2>3. {text.confirmExtraRequest}</h2>
 
         <textarea
           id="extra-request"
@@ -213,24 +209,20 @@ export default function TravelForm({
             textarea.style.height = `${steppedHeight}px`;
           }}
 
-          placeholder={
-            language === "ko"
-              ? "예: 조용한 온천 지역이면 좋겠어요."
-              : "例: 静かな温泉地に行きたいです。"
-          }
+          placeholder={text.extraRequestPlaceholder}
         />
 
         <p className="character-count">
           {extraRequest.length}/100
         </p>
 
-        <button type="button" onClick={handleRecommendClick} disabled={isLoading}>
-          {isLoading
-            ? language === "ko"
-              ? "추천 생성 중..."
-              : "おすすめ作成中..."
-            : text.recommendButton}
-        </button>
+        <div className="form-actions">
+          <button type="button" onClick={handleRecommendClick} disabled={isLoading}>
+            {isLoading
+              ? text.loadingButton
+              : text.recommendButton}
+          </button>
+        </div>
       </div>
     </section>
   );

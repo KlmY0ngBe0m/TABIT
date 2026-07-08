@@ -3,6 +3,8 @@ export type Language = "ko" | "ja";
 export const translations = {
     ko: {
         description: "나에게 맞는 일본 여행지를 찾아보세요",
+        basicTravelInfo: "기본 여행 정보",
+        travelPreference: "여행 취향 선택",
         region: "여행 지역 선택",
         regionDescription: "원하는 지역이 있으면 선택하세요.",
         selectedRegion: "선택 지역",
@@ -68,6 +70,8 @@ export const translations = {
         planDaySuffix: "일차",
         soloLabel: "혼자",
         selectedTravelCondition: "선택한 여행 조건",
+        extraRequestPlaceholder: "예: 조용한 온천 지역이면 좋겠어요.",
+        loadingButton: "추천 생성 중...",
         confirmTitle: "입력한 조건으로 여행지를 추천할까요?",
         confirmBudget: "예산",
         confirmDays: "여행 기간",
@@ -86,6 +90,8 @@ export const translations = {
 
     ja: {
         description: "あなたにぴったりの日本旅行先を見つけましょう。",
+        basicTravelInfo: "基本旅行情報",
+        travelPreference: "旅行の好みを選択",
         region: "旅行地域を選択",
         regionDescription: "希望する日本の地域を選択してください。",
         selectedRegion: "選択地域",
@@ -150,6 +156,8 @@ export const translations = {
         samplePlan: "簡単な旅程",
         planDaySuffix: "日目",
         soloLabel: "一人",
+        extraRequestPlaceholder: "例: 静かな温泉地に行きたいです。",
+        loadingButton: "おすすめ作成中...",
         confirmTitle: "入力した条件で旅行先をおすすめしますか？",
         selectedTravelCondition: "選択した旅行条件",
         confirmBudget: "予算",

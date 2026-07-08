@@ -16,12 +16,12 @@ export default function InterestSelector({
     selectedTitle,
 }: InterestSelectorProps) {
     return (
-        <>
+        <div className="interest-section">
             <label>{title}</label>
 
             <div className="interest-options">
                 {interestOptions.map((interest) => (
-                    <label key={interest} className="">
+                    <label key={interest} className="interest-option">
                         <input
                             type="checkbox"
                             checked={interests.includes(interest)}
@@ -31,10 +31,10 @@ export default function InterestSelector({
                     </label>
                 ))}
             </div>
-            <p>
+            <p className="selected-interest">
                 {selectedTitle}:{" "}
                 {interests.map((interest) => interestLabels[interest]).join(", ")}
             </p>
-        </>
+        </div>
     );
 }
