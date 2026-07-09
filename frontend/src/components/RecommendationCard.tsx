@@ -44,32 +44,30 @@ export default function RecommendationCard({
     <section className="result-card">
       <span className="result-badge">{text.resultLabel}</span>
 
-      <div className="result-header">
-        <h2>
-          {text.recommendedDestination}: {recommendation.recommendedCity}
-        </h2>
+      <h2>
+        {text.recommendedDestination}: {recommendation.recommendedCity}
+      </h2>
+      
+      {submittedCondition && (
+        <div className="result-condition-area">
+          <button
+            type="button"
+            className="condition-toggle-button"
+            onClick={() => setIsConditionVisible(!isConditionVisible)}
+          >
+            {isConditionVisible
+              ? text.hideSelectedCondition
+              : text.showSelectedCondition}
+          </button>
 
-        {submittedCondition && (
-          <div className="result-condition-area">
-            <button
-              type="button"
-              className="condition-toggle-button"
-              onClick={() => setIsConditionVisible(!isConditionVisible)}
-            >
-              {isConditionVisible
-                ? text.hideSelectedCondition
-                : text.showSelectedCondition}
-            </button>
-
-            {isConditionVisible && (
-              <ConditionSummary
-                condition={submittedCondition}
-                language={language}
-              />
-            )}
-          </div>
-        )}
-      </div>
+          {isConditionVisible && (
+            <ConditionSummary
+              condition={submittedCondition}
+              language={language}
+            />
+          )}
+        </div>
+      )}
 
       <div className="result-section">
         <strong>{text.recommendationReason}</strong>

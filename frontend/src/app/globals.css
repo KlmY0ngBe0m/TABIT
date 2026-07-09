@@ -175,6 +175,7 @@ input[type="checkbox"] {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
+  max-width: 16px;
   margin-top: 0;
   accent-color: var(--primary);
 }
@@ -329,152 +330,6 @@ button:active {
   font-size: 18px;
 }
 
-.result-card ul {
-  padding-left: 20px;
-}
-
-.result-card li+li {
-  margin-top: 6px;
-}
-
-@media (max-width: 420px) {
-  main {
-    width: min(100%, 640px);
-    margin: 0 auto;
-    padding: 36px 20px 64px;
-  }
-
-  h1 {
-    font-size: 36px;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .travel-form,
-  .result-card {
-    padding: 22px;
-    border-radius: 14px;
-  }
-
-  .form-section {
-    padding: 18px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .condition-toggle-button {
-    width: 100%;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  .language-toggle {
-    width: auto;
-  }
-
-  .plan-item {
-    grid-template-columns: 1fr;
-  }
-
-  .plan-day {
-    width: fit-content;
-  }
-
-  .form-actions {
-    display: block;
-  }
-
-  .form-actions button {
-    width: 100%;
-  }
-
-  .condition-summary dl {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .condition-summary div {
-    padding: 8px;
-  }
-
-  .condition-summary dt {
-    font-size: 12px;
-  }
-
-  .condition-summary dd {
-    font-size: 13px;
-  }
-
-  .region-map {
-    height: 300px;
-  }
-
-  .region-button {
-    width: auto;
-    padding: 6px 10px;
-    font-size: 12px;
-  }
-
-  .region-undecided {
-    top: 14px;
-    left: 14px;
-  }
-
-  .region-hokkaido {
-    top: 24px;
-    right: 18px;
-  }
-
-  .region-tohoku {
-    top: 86px;
-    right: 50px;
-  }
-
-  .region-kanto {
-    top: 150px;
-    right: 52px;
-  }
-
-  .region-chubu {
-    top: 160px;
-    right: 126px;
-  }
-
-  .region-kansai {
-    top: 206px;
-    left: 148px;
-  }
-
-  .region-chugoku {
-    top: 184px;
-    left: 62px;
-  }
-
-  .region-shikoku {
-    top: 236px;
-    left: 110px;
-  }
-
-  .region-kyushu {
-    top: 210px;
-    left: 54px;
-  }
-
-  .region-okinawa {
-    bottom: 42px;
-    left: 58px;
-  }
-}
-
 .result-badge {
   display: inline-flex;
   padding: 6px 13px;
@@ -536,60 +391,6 @@ button:active {
   line-height: 1.7;
 }
 
-.result-section ul {
-  margin-top: 8px;
-  padding-left: 20px;
-}
-
-.result-section li {
-  margin-bottom: 6px;
-  line-height: 1.6;
-}
-
-.result-label {
-  display: block;
-  margin-bottom: 8px;
-  padding: 0;
-  background: none;
-  color: #0f172a;
-  border-radius: 0;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.plan-list li {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 12px;
-  background-color: #f8fafc;
-  border-radius: 12px;
-}
-
-.plan-list li+li {
-  margin-top: 10px;
-}
-
-.plan-list span {
-  flex: 0 0 52px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 8px;
-  background-color: var(--primary);
-  color: white;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.plan-list p {
-  margin: 0;
-  color: #334155;
-  line-height: 1.7;
-}
-
 button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
@@ -601,7 +402,7 @@ button:disabled:hover {
 }
 
 .result-condition-area {
-  margin: 0
+  margin: 0 0 18px;
 }
 
 .condition-toggle-button {
@@ -663,31 +464,26 @@ button:disabled:hover {
   font-size: 14px;
 }
 
+.region-map-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.7;
+  pointer-events: none;
+  transform: translateX(30px) translateY(70px) scale(1.4);
+  transform-origin: center;
+}
+
 .region-map {
   position: relative;
   height: 360px;
   margin-top: 14px;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 78% 16%, rgba(37, 99, 235, 0.14) 0 12%, transparent 13%),
-    radial-gradient(circle at 68% 34%, rgba(37, 99, 235, 0.12) 0 12%, transparent 11%),
-    radial-gradient(circle at 55% 50%, rgba(37, 99, 235, 0.1) 0 12%, transparent 12%),
-    radial-gradient(circle at 38% 60%, rgba(37, 99, 235, 0.1) 0 12%, transparent 14%),
-    linear-gradient(180deg, #eff6ff, #ffffff);
   border: 1px solid #dbeafe;
+  background: linear-gradient(180deg, #eff6ff, #ffffff);
   border-radius: 18px;
-}
-
-.region-map::before {
-  content: "";
-  position: absolute;
-  inset: 24px 34px;
-  background: linear-gradient(135deg, rgba(147, 197, 253, 0-0.04), rgba(291, 234, 254, 0.18));
-  clip-path: polygon(76% 2%, 91% 8%, 86% 22%, 73% 21%, 69% 33%,
-      77% 43%, 66% 53%, 55% 49%, 49% 59%, 37% 58%,
-      29% 70%, 17% 66%, 10% 80%, 18% 92%, 6% 96%,
-      3% 84%, 11% 72%, 21% 62%, 32% 51%, 45% 47%,
-      54% 37%, 63% 30%, 68% 15%);
 }
 
 .region-button {
@@ -705,6 +501,12 @@ button:disabled:hover {
   font-weight: 700;
 }
 
+.region-map .region-button {
+  width: auto;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
 .region-button:hover {
   background-color: #eff6ff;
   color: var(--primary-dark);
@@ -717,53 +519,53 @@ button:disabled:hover {
 }
 
 .region-undecided {
-  top: 18px;
-  left: 18px;
+  top: 1%;
+  left: 1%;
 }
 
 .region-hokkaido {
-  top: 26px;
-  right: 30px;
+  top: 17%;
+  right: 20%;
 }
 
 .region-tohoku {
-  top: 92px;
-  right: 72px;
+  top: 32%;
+  right: 27%;
 }
 
 .region-kanto {
-  top: 158px;
-  right: 82px;
+  top: 55%;
+  right: 28%;
 }
 
 .region-chubu {
-  top: 170px;
-  right: 170px;
+  top: 53%;
+  right: 42%;
 }
 
 .region-kansai {
-  top: 180px;
-  left: 218px;
+  bottom: 25%;
+  left: 40%;
 }
 
 .region-chugoku {
-  top: 162px;
-  left: 98px;
+  bottom: 28%;
+  left: 25%;
 }
 
 .region-shikoku {
-  top: 208px;
-  left: 160px;
+  bottom: 16%;
+  left: 29%;
 }
 
 .region-kyushu {
-  top: 214px;
-  left: 52px;
+  bottom: 11%;
+  left: 17%;
 }
 
 .region-okinawa {
-  bottom: 26px;
-  left: 58px;
+  bottom: 1%;
+  left: 1%;
 }
 
 .selected-region {
@@ -774,4 +576,162 @@ button:disabled:hover {
 
 .selected-region strong {
   color: var(--primary);
+}
+
+@media (max-width: 640px) {
+  main {
+    width: min(100%, 640px);
+    margin: 0 auto;
+    padding: 36px 20px 64px;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .travel-form,
+  .result-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .form-section {
+    padding: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .condition-toggle-button {
+    width: 100%;
+  }
+
+  .form-actions button,
+  .condition-toggle-button {
+    width: 100%;
+  }
+
+  .language-toggle {
+    width: auto;
+  }
+
+  .plan-item {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-day {
+    width: fit-content;
+  }
+
+  .form-actions {
+    display: block;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+  .condition-summary dl {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .condition-summary div {
+    padding: 8px;
+  }
+
+  .condition-summary dt {
+    font-size: 12px;
+  }
+
+  .condition-summary dd {
+    font-size: 13px;
+  }
+
+  .region-map {
+    height: 360px;
+  }
+
+  .region-map-image {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(10px) translateY(20px) scale(1.22);
+    transform-origin: center;
+  }
+
+  .region-button {
+    min-height: 30px;
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .region-map .region-button {
+    width: auto;
+    height: 10px;
+    min-width: max-content;
+    max-width: none;
+    min-height: 30px;
+    padding: 5px 9px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .region-undecided {
+    top: 1%;
+    left: 1%;
+  }
+
+  .region-hokkaido {
+    top: 22%;
+    right: 19%;
+  }
+
+  .region-tohoku {
+    top: 33%;
+    right: 28%;
+  }
+
+  .region-kanto {
+    top: 47%;
+    right: 30%;
+  }
+
+  .region-chubu {
+    top: 41%;
+    right: 40%;
+  }
+
+  .region-kansai {
+    top: 50%;
+    left: 41%;
+  }
+
+  .region-chugoku {
+    top: 47%;
+    left: 25%;
+  }
+
+  .region-shikoku {
+    top: 58%;
+    left: 30%;
+  }
+
+  .region-kyushu {
+    bottom: 30%;
+    left: 17%;
+  }
+
+  .region-okinawa {
+    bottom: 8%;
+    left: 1%;
+  }
 }

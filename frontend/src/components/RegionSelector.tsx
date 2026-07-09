@@ -35,6 +35,11 @@ export default function RegionSelector({
             <p className="region-description">{description}</p>
 
             <div className="region-map">
+                <img
+                    src="/japan-map.svg"
+                    alt="Japan map"
+                    className="region-map-image"
+                />
                 {regionOptions.map((region) => (
                     <button
                         key={region}
