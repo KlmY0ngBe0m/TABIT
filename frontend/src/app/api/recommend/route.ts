@@ -1,5 +1,5 @@
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 function createFallbackRecommendation(interests: string[]) {
   if (interests.includes("nature")) {
@@ -94,7 +94,7 @@ export async function POST(request: Request) {
             
             조건:
            - 예산: ${body.budget}
-           - 예산 단위는 입련된 그대로 사용하고, 다른 통화로 변환하지 마세요.
+           - 예산 단위는 입력된 그대로 사용하고, 다른 통화로 변환하지 마세요.
            - 여행 기간: ${body.days}일
            - 출발일: ${body.startDate || "미정"}
            - 귀국일: ${body.endDate || "미정"}
@@ -145,7 +145,7 @@ export async function POST(request: Request) {
         ?.text;
 
     if (!aiText) {
-      console.error("OpenAI raw resonse", JSON.stringify(data, null, 2));
+      console.error("OpenAI raw response", JSON.stringify(data, null, 2));
       throw new Error("AI response text is empty");
     }
 
@@ -158,6 +158,29 @@ export async function POST(request: Request) {
       !allowedCities.some((city) => recommendation.recommendedCity.includes(city))
     ) {
       throw new Error("Recommended city is outside selected region");
+    }
+
+    const { error: insertError } = await supabaseAdmin
+      .from("recommendation_logs")
+      .insert({
+        budget: body.budget,
+        days: Number(body.days),
+        start_date: body.startDate,
+        end_date: body.endDate,
+        people_count: Number(String(body.peopleCount).replace(/\D/g, "")),
+        selected_region: body.selectedRegion,
+        companion: body.companion,
+        travel_style: body.travelStyle,
+        interests: body.interests ?? [],
+        extra_request: body.extraRequest || null,
+        recommended_city: recommendation.recommendedCity,
+        recommendation_reason: recommendation.recommendationReason,
+        estimated_budget: recommendation.estimatedBudget,
+        language: body.language,
+      });
+
+    if (insertError) {
+      console.error("Supabase insert error", insertError);
     }
 
     return NextResponse.json(recommendation);
