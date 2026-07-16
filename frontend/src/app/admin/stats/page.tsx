@@ -1,5 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import AdminLogoutButton from "@/components/AdminLogoutButton";
 
 type RankingItem = {
     label: string;
@@ -64,7 +66,11 @@ export default async function AdminStatsPage() {
     return (
         <main>
             <section className="admin-stats-header">
-                <p className="result-badge">Admin Dashboard</p>
+                <div className="admin-stats-top">
+                    <p className="result-badge">Admin Dashboard</p>
+                    <AdminLogoutButton />
+                </div>
+
                 <h1>추천 기록 통계</h1>
                 <p>추천 기록을 기반으로 한 관리자용 통계입니다.</p>
             </section>
